@@ -7909,21 +7909,6 @@ body.accessibility-widget-visible ._access-menu {
     display: none !important;
   }
 }
-
-.index-hero-section .index-hero-card {
-  background: rgba(18, 32, 58, 0.88) !important;
-  backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(198, 164, 108, 0.55) !important;
-  box-shadow: 0 24px 64px rgba(10, 20, 40, 0.55), inset 0 1px 0 rgba(198,164,108,0.2) !important;
-}
-
-.index-hero-section .index-hero-h1 {
-  color: #FAF9F7 !important;
-}
-
-.index-hero-section .index-hero-subtitle {
-  color: rgba(250, 249, 247, 0.78) !important;
-}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
