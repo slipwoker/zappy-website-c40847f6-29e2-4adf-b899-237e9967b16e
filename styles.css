@@ -3311,21 +3311,24 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 }
 
 .index-proof-section .index-proof-card {
-  background: #FFFFFF;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-card, 4px);
-  padding: var(--spacing-card-padding, 40px);
-  box-shadow: var(--shadow-card, 0 6px 30px rgba(27,43,75,0.08));
+  background: linear-gradient(160deg, #1E3A5F 0%, #152A47 100%);
+  border: 1px solid rgba(198, 164, 108, 0.3);
+  border-radius: 12px;
+  padding: 36px 32px;
+  box-shadow: 0 8px 40px rgba(15, 25, 50, 0.35), inset 0 1px 0 rgba(198,164,108,0.15);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   text-align: right;
+  position: relative;
+  overflow: hidden;
 }
 
 .index-proof-section .index-proof-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-elevated, 0 12px 48px rgba(27,43,75,0.12));
+  transform: translateY(-5px);
+  box-shadow: 0 16px 56px rgba(15, 25, 50, 0.5), inset 0 1px 0 rgba(198,164,108,0.25);
+  border: 1px solid rgba(198, 164, 108, 0.6);
 }
 
 .index-proof-section .index-proof-card-icon {
@@ -3346,24 +3349,24 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 
 .index-proof-section .index-proof-card-title {
   font-family: 'Rubik', sans-serif;
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.4;
-  color: var(--text-dark);
+  color: #C6A46C;
   margin: 0;
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(198, 164, 108, 0.3);
+  padding-bottom: 14px;
+  letter-spacing: 0.01em;
 }
 
 .index-proof-section .index-proof-card-text {
   font-family: 'Rubik', sans-serif;
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: rgba(250, 249, 247, 0.82);
   margin: 0;
 }
 
-/* ── Trust Signals Row ── */
 .index-proof-section .index-proof-trust-row {
   display: flex;
   flex-direction: row;
@@ -3371,11 +3374,11 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   justify-content: center;
   flex-wrap: wrap;
   gap: 0;
-  background: #FFFFFF;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-card, 4px);
+  background: linear-gradient(135deg, #1E3A5F 0%, #152A47 100%);
+  border: 1px solid rgba(198, 164, 108, 0.35);
+  border-radius: 12px;
   padding: 28px 40px;
-  box-shadow: var(--shadow-subtle, 0 2px 12px rgba(27,43,75,0.06));
+  box-shadow: 0 8px 40px rgba(15, 25, 50, 0.3);
   direction: rtl;
 }
 
@@ -3389,7 +3392,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 }
 
 .index-proof-section .index-proof-trust-icon {
-  color: var(--accent);
+  color: #C6A46C;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -3397,17 +3400,17 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 
 .index-proof-section .index-proof-trust-text {
   font-family: 'Rubik', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.5;
-  color: var(--text-dark);
+  color: rgba(250, 249, 247, 0.9);
   white-space: nowrap;
 }
 
 .index-proof-section .index-proof-trust-separator {
   width: 1px;
   height: 28px;
-  background: var(--border-light);
+  background: rgba(198, 164, 108, 0.3);
   flex-shrink: 0;
 }
 
