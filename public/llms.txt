@@ -5,53 +5,33 @@
 ## Pages
 
 ### בית
-https://harari-and-co-law-office.zappy5.app
+https://yharari-law.co.il
 נפגעתם בתאונת דרכים, רשלנות רפואית או נפילה במדרכה? הררי ושות&#39; לצידכם. ייעוץ משפטי מקצועי, תוצאות מוכחות. פנו אלינו עוד היום.
 
 ### תחומי עיסוק
-https://harari-and-co-law-office.zappy5.app/practice-areas
+https://yharari-law.co.il/practice-areas
 מרשלנות רפואית בלידה ועד עריכת חוזים לחברות — גלו כיצד אנו מגנים על זכויותיכם בכל תחום משפטי עם ניסיון, מקצועיות ומחויבות מלאה.
 
 ### אודות
-https://harari-and-co-law-office.zappy5.app/about
+https://yharari-law.co.il/about
 הררי ושות&#39; הוא משרד עורכי דין עם מוניטין מוכח בנזקי גוף וייעוץ משפטי לעסקים. גלו מי אנחנו, מה מניע אותנו ולמה לקוחות בוחרים בנו שוב ושוב.
 
 ### צור קשר
-https://harari-and-co-law-office.zappy5.app/contact
+https://yharari-law.co.il/contact
 יש לכם שאלה על תאונת דרכים, רשלנות רפואית או עריכת חוזים? צרו קשר עם הררי ושות&#39; עכשיו לייעוץ ראשוני ומקצועי — כי כל יום שעובר חשוב.
-
-### מאמרים ומדריכים משפטיים
-https://harari-and-co-law-office.zappy5.app/blog
-הררי ושות' - משרד עורכי-דין - מאמרים ומדריכים משפטיים
-
-### רשלנות
-https://harari-and-co-law-office.zappy5.app/blog/medical-negligence
-הסבר מעשי על התנאים לבחינת רשלנות רפואית, אילו מסמכים דרושים, ומה חשוב לבדוק לפני קבלת החלטה על תביעה.
-
-### ביטוח
-https://harari-and-co-law-office.zappy5.app/blog/insurance-claim-rejection
-מדריך ברור למבוטחים שקיבלו מכתב דחייה מחברת הביטוח ומעוניינים להבין האם ההחלטה סופית או שניתן לערער עליה.
-
-### נזקי גוף
-https://harari-and-co-law-office.zappy5.app/blog/personal-injury-after-accident
-הנחיות בסיסיות לנפגעי תאונות כיצד לפעול מיד לאחר האירוע כדי לשמור על הבריאות ועל הזכויות המשפטיות.
-
-### עבודה
-https://harari-and-co-law-office.zappy5.app/blog/work-accident-rights
-סקירה עניינית על תאונות עבודה, ההכרה בביטוח לאומי, והמצבים שבהם חשוב לבחון גם זכויות נוספות מעבר לכך.
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://harari-and-co-law-office.zappy5.app/privacy
+https://yharari-law.co.il/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://harari-and-co-law-office.zappy5.app/terms
+https://yharari-law.co.il/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://harari-and-co-law-office.zappy5.app/accessibility
+https://yharari-law.co.il/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -63,5 +43,5 @@ Information about WCAG compliance and accessibility features.
 
 # Additional Resources
 
-- **Sitemap**: https://harari-and-co-law-office.zappy5.app/sitemap.xml
-- **Robots.txt**: https://harari-and-co-law-office.zappy5.app/robots.txt
+- **Sitemap**: https://yharari-law.co.il/sitemap.xml
+- **Robots.txt**: https://yharari-law.co.il/robots.txt

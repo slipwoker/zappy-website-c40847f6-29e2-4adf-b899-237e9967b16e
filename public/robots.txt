@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://harari-and-co-law-office.zappy5.app/sitemap.xml
+Sitemap: https://yharari-law.co.il/sitemap.xml

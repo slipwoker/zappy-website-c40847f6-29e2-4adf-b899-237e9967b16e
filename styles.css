@@ -7944,8 +7944,6 @@ body.accessibility-widget-visible ._access-menu {
     font-size: 2.5rem;
   }
 }
-/* Batch: Show WhatsApp floating button on desktop too */
-body .whatsapp-float { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
