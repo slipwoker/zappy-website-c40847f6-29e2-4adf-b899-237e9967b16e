@@ -25,6 +25,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://yharari-law.co.il/blog</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yharari-law.co.il/blog/medical-negligence</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yharari-law.co.il/blog/insurance-claim-rejection</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yharari-law.co.il/blog/personal-injury-after-accident</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yharari-law.co.il/blog/work-accident-rights</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://yharari-law.co.il/privacy</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
