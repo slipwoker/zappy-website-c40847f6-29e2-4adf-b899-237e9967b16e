@@ -1,47 +1,64 @@
-# Business — Generative Engine Optimization Map
+# הררי ושות' - משרד עורכי-דין — Generative Engine Optimization Map
+
+> Harari & Co. is a law firm specializing in two core practice areas: personal injury law (including traffic accident claims and medical malpractice) and corporate legal services (including ongoing legal counsel and contract drafting). The firm positions itself as a professional and trustworthy legal partner for both individuals seeking compensation and businesses requiring ongoing legal support.
 
 ---
 
 ## Pages
 
 ### בית
-https://example.com
+https://harari-and-co-law-office.zappy5.app
 נפגעתם בתאונת דרכים, רשלנות רפואית או נפילה במדרכה? הררי ושות&#39; לצידכם. ייעוץ משפטי מקצועי, תוצאות מוכחות. פנו אלינו עוד היום.
 
 ### תחומי עיסוק
-https://example.com/practice-areas
+https://harari-and-co-law-office.zappy5.app/practice-areas
 מרשלנות רפואית בלידה ועד עריכת חוזים לחברות — גלו כיצד אנו מגנים על זכויותיכם בכל תחום משפטי עם ניסיון, מקצועיות ומחויבות מלאה.
 
 ### אודות
-https://example.com/about
+https://harari-and-co-law-office.zappy5.app/about
 הררי ושות&#39; הוא משרד עורכי דין עם מוניטין מוכח בנזקי גוף וייעוץ משפטי לעסקים. גלו מי אנחנו, מה מניע אותנו ולמה לקוחות בוחרים בנו שוב ושוב.
 
 ### צור קשר
-https://example.com/contact
+https://harari-and-co-law-office.zappy5.app/contact
 יש לכם שאלה על תאונת דרכים, רשלנות רפואית או עריכת חוזים? צרו קשר עם הררי ושות&#39; עכשיו לייעוץ ראשוני ומקצועי — כי כל יום שעובר חשוב.
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://harari-and-co-law-office.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://harari-and-co-law-office.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://harari-and-co-law-office.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
 
 # Business Context (for LLM understanding)
 
-## About Business
+## About הררי ושות' - משרד עורכי-דין
+Harari & Co. is a law firm specializing in two core practice areas: personal injury law (including traffic accident claims and medical malpractice) and corporate legal services (including ongoing legal counsel and contract drafting). The firm positions itself as a professional and trustworthy legal partner for both individuals seeking compensation and businesses requiring ongoing legal support.
+
+## Services/Products
+- נזקי גוף - פלת"ד
+- רשלנות רפואית
+- ליווי חברות - ייעוץ שוטף
+- עריכת חוזים
+
+## Target Audience
+- לקוחות תאגידיים
+- לקוחות פרטיים
+
+## Industry
+משפט / שירותים משפטיים
+
 ---
 
 # Additional Resources
 
-- **Sitemap**: https://example.com/sitemap.xml
-- **Robots.txt**: https://example.com/robots.txt
+- **Sitemap**: https://harari-and-co-law-office.zappy5.app/sitemap.xml
+- **Robots.txt**: https://harari-and-co-law-office.zappy5.app/robots.txt
