@@ -1,6 +1,4 @@
-# הררי ושות' - משרד עורכי-דין — Generative Engine Optimization Map
-
-> Harari & Co. is a law firm specializing in two core practice areas: personal injury law (including traffic accident claims and medical malpractice) and corporate legal services (including ongoing legal counsel and contract drafting). The firm positions itself as a professional and trustworthy legal partner for both individuals seeking compensation and businesses requiring ongoing legal support.
+# Business — Generative Engine Optimization Map
 
 ---
 
@@ -22,6 +20,26 @@ https://harari-and-co-law-office.zappy5.app/about
 https://harari-and-co-law-office.zappy5.app/contact
 יש לכם שאלה על תאונת דרכים, רשלנות רפואית או עריכת חוזים? צרו קשר עם הררי ושות&#39; עכשיו לייעוץ ראשוני ומקצועי — כי כל יום שעובר חשוב.
 
+### מאמרים ומדריכים משפטיים
+https://harari-and-co-law-office.zappy5.app/blog
+הררי ושות' - משרד עורכי-דין - מאמרים ומדריכים משפטיים
+
+### רשלנות
+https://harari-and-co-law-office.zappy5.app/blog/medical-negligence
+הסבר מעשי על התנאים לבחינת רשלנות רפואית, אילו מסמכים דרושים, ומה חשוב לבדוק לפני קבלת החלטה על תביעה.
+
+### ביטוח
+https://harari-and-co-law-office.zappy5.app/blog/insurance-claim-rejection
+מדריך ברור למבוטחים שקיבלו מכתב דחייה מחברת הביטוח ומעוניינים להבין האם ההחלטה סופית או שניתן לערער עליה.
+
+### נזקי גוף
+https://harari-and-co-law-office.zappy5.app/blog/personal-injury-after-accident
+הנחיות בסיסיות לנפגעי תאונות כיצד לפעול מיד לאחר האירוע כדי לשמור על הבריאות ועל הזכויות המשפטיות.
+
+### עבודה
+https://harari-and-co-law-office.zappy5.app/blog/work-accident-rights
+סקירה עניינית על תאונות עבודה, ההכרה בביטוח לאומי, והמצבים שבהם חשוב לבחון גם זכויות נוספות מעבר לכך.
+
 ## Legal & Policy
 
 ### Privacy Policy
@@ -40,22 +58,7 @@ Information about WCAG compliance and accessibility features.
 
 # Business Context (for LLM understanding)
 
-## About הררי ושות' - משרד עורכי-דין
-Harari & Co. is a law firm specializing in two core practice areas: personal injury law (including traffic accident claims and medical malpractice) and corporate legal services (including ongoing legal counsel and contract drafting). The firm positions itself as a professional and trustworthy legal partner for both individuals seeking compensation and businesses requiring ongoing legal support.
-
-## Services/Products
-- נזקי גוף - פלת"ד
-- רשלנות רפואית
-- ליווי חברות - ייעוץ שוטף
-- עריכת חוזים
-
-## Target Audience
-- לקוחות תאגידיים
-- לקוחות פרטיים
-
-## Industry
-משפט / שירותים משפטיים
-
+## About Business
 ---
 
 # Additional Resources
