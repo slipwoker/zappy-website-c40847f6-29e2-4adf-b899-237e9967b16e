@@ -246,6 +246,8 @@
     <!-- Mickidum Accessibility Toolbar -->
     <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
 
+
+
 <style data-zappy-section-v2-css="true">
 /* V2 Regenerated Section CSS */
 .index-hero-section {
@@ -257,135 +259,143 @@
   color: var(--text-light);
   display: flex;
   align-items: center;
-  padding-bottom: 70px;
+  padding-bottom: 80px;
   direction: rtl;
 }
 
-/* ── Background image ── */
+/* Background image layer */
 .index-hero-section .index-hero-bg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: cover;
   z-index: 0;
+  overflow: hidden;
 }
 
-/* ── Scrim overlay ── */
+.index-hero-section .index-hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0;
+}
+
+/* Scrim overlay */
 .index-hero-section .index-hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-color: rgba(24, 49, 83, 0.72);
+  background-color: #183153;
   background-image:
-    linear-gradient(to top, rgba(24,49,83,0.92) 0%, rgba(24,49,83,0.55) 55%, rgba(24,49,83,0.30) 100%);
+    linear-gradient(to top,
+      rgba(24, 49, 83, 0.92) 0%,
+      rgba(24, 49, 83, 0.78) 40%,
+      rgba(24, 49, 83, 0.50) 70%,
+      rgba(24, 49, 83, 0.30) 100%
+    );
 }
 
-/* ── Gold vertical accent line (decorative) ── */
-.index-hero-section .index-hero-gold-line {
+/* Skyline decorative motif */
+.index-hero-section .index-hero-skyline-motif {
   position: absolute;
-  inset-inline-end: 12%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent 0%, rgba(198,164,108,0.35) 30%, rgba(198,164,108,0.55) 60%, transparent 100%);
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  height: 220px;
   z-index: 2;
   pointer-events: none;
+  background-image: linear-gradient(to top, rgba(24,49,83,0.62) 0%, transparent 100%);
 }
 
-/* ── Container ── */
+/* Container */
 .index-hero-section .index-hero-container {
   position: relative;
   z-index: 10;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 160px 48px 80px;
+  padding: 160px 48px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-/* ── Content block ── */
+/* Content block */
 .index-hero-section .index-hero-content {
-  max-width: 680px;
+  max-width: 700px;
   text-align: right;
 }
 
-/* ── Eyebrow row ── */
-.index-hero-section .index-hero-eyebrow {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 28px;
-  justify-content: flex-start;
-}
-
-.index-hero-section .index-hero-firm-name {
+/* Firm label */
+.index-hero-section .index-hero-label {
   font-family: 'Inter', 'Source Sans 3', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-}
-
-/* ── Diamond motif ── */
-.index-hero-section .index-hero-diamond {
+  margin-bottom: 16px;
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  transform: rotate(45deg);
-  flex-shrink: 0;
+  text-align: right;
 }
 
-/* ── H1 ── */
+/* Gold accent line */
+.index-hero-section .index-hero-accent-line {
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, #C6A46C 0%, #e8d5a3 60%, #C6A46C 100%);
+  margin-bottom: 24px;
+  margin-inline-start: 0;
+  border-radius: 2px;
+}
+
+/* H1 */
 .index-hero-section .index-hero-h1 {
   font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
   font-size: 3rem;
   font-weight: 700;
-  line-height: 1.2;
-  color: var(--text-light);
-  margin: 0 0 20px;
-  text-shadow: 0 2px 24px rgba(24,49,83,0.5);
+  line-height: 1.15;
   letter-spacing: -0.01em;
+  color: var(--text-light);
+  margin: 0 0 12px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+  text-align: right;
 }
 
-/* ── Accent text span in H1 ── */
-.index-hero-section .index-hero-accent-text {
-  background: linear-gradient(90deg, #B8923A 0%, #C9A84C 40%, #E8D5A3 60%, #C9A84C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.index-hero-section .index-hero-h1-accent {
+  color: var(--accent);
+  display: inline;
 }
 
-/* ── H3 subtitle ── */
+/* H3 subtitle */
 .index-hero-section .index-hero-h3 {
   font-family: 'Inter', 'Source Sans 3', sans-serif;
   font-size: 1.05rem;
   font-weight: 400;
-  line-height: 1.8;
+  line-height: 1.75;
   color: rgba(250, 249, 247, 0.88);
-  margin: 0 0 40px;
-  text-shadow: 0 1px 8px rgba(24,49,83,0.4);
-  max-width: 580px;
+  margin: 0 0 36px;
+  max-width: 620px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+  text-align: right;
 }
 
-/* ── CTA group ── */
+/* CTA group */
 .index-hero-section .index-hero-ctas {
   display: flex;
   flex-direction: row;
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-/* ── Primary button ── */
+/* Primary button */
 .index-hero-section .index-hero-btn-primary {
   display: inline-block;
   background: var(--accent);
-  color: #1B2B4B;
+  color: #183153;
   font-family: 'Inter', 'Source Sans 3', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
@@ -393,19 +403,20 @@
   padding: 14px 32px;
   border-radius: 4px;
   text-decoration: none;
+  border: none;
+  box-shadow: 0 12px 40px rgba(198, 164, 108, 0.30);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 12px 40px rgba(201,168,76,0.25);
   white-space: nowrap;
 }
 
 .index-hero-section .index-hero-btn-primary:hover {
-  background: #E8D5A3;
-  color: #1B2B4B;
+  background: #e8d5a3;
+  color: #183153;
   transform: translateY(-3px);
-  box-shadow: 0 16px 48px rgba(201,168,76,0.4);
+  box-shadow: 0 18px 48px rgba(198, 164, 108, 0.45);
 }
 
-/* ── Secondary button ── */
+/* Secondary button */
 .index-hero-section .index-hero-btn-secondary {
   display: inline-block;
   background: transparent;
@@ -414,28 +425,28 @@
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  padding: 14px 28px;
+  padding: 13px 28px;
   border-radius: 4px;
-  border: 1.5px solid rgba(198,164,108,0.7);
+  border: 1.5px solid rgba(198, 164, 108, 0.70);
   text-decoration: none;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 
 .index-hero-section .index-hero-btn-secondary:hover {
-  background: rgba(198,164,108,0.12);
+  background: rgba(198, 164, 108, 0.12);
   border-color: var(--accent);
   color: var(--accent);
   transform: translateY(-3px);
 }
 
-/* ── Bottom divider wrapper ── */
+/* Bottom divider wrapper */
 .index-hero-section .index-hero-divider-wrapper {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 80px;
   pointer-events: none;
   z-index: 5;
 }
@@ -446,19 +457,17 @@
   height: 100%;
 }
 
-/* ── MOBILE ── */
+/* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
   .index-hero-section {
     min-height: 100svh;
-    padding-bottom: 70px;
-  }
-
-  .index-hero-section .index-hero-gold-line {
-    display: none;
+    align-items: flex-end;
+    padding-bottom: 80px;
   }
 
   .index-hero-section .index-hero-container {
-    padding: 120px 20px 60px;
+    padding: 100px 20px 48px;
+    align-items: flex-start;
   }
 
   .index-hero-section .index-hero-content {
@@ -466,36 +475,38 @@
   }
 
   .index-hero-section .index-hero-h1 {
-    font-size: 2rem;
-    margin-bottom: 16px;
+    font-size: 2.1rem;
+    line-height: 1.2;
   }
 
   .index-hero-section .index-hero-h3 {
     font-size: 0.97rem;
-    line-height: 1.75;
-    margin-bottom: 32px;
+    max-width: 100%;
+    margin-bottom: 28px;
   }
 
   .index-hero-section .index-hero-ctas {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+    width: 100%;
   }
 
   .index-hero-section .index-hero-btn-primary,
   .index-hero-section .index-hero-btn-secondary {
     text-align: center;
+    width: 100%;
     padding: 14px 20px;
   }
 
-  .index-hero-section .index-hero-eyebrow {
-    margin-bottom: 20px;
+  .index-hero-section .index-hero-skyline-motif {
+    height: 140px;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .index-hero-section .index-hero-container {
-    padding: 140px 32px 80px;
+    padding: 140px 32px 60px;
   }
 
   .index-hero-section .index-hero-h1 {
@@ -1027,28 +1038,29 @@
   
   <main>
     <section class="index-hero-section" data-layout-spec="בית-hero" dir="rtl" data-hero-type="fullscreen-scrim" data-zappy-section="true">
-  <!-- Background Image -->
-  <div class="index-hero-bg" style="background-image: url('assets/site-index-hero-image-1.webp'); background-size: cover; background-position: center;"></div>
+  <!-- Background Image Layer -->
+  <div class="index-hero-bg">
+    <img data-hero-bg="true" alt="משרד עורכי דין הררי ושות' - ייצוג משפטי מקצועי" class="index-hero-bg-img" src="/assets/site-index-hero-image-1.webp" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+  </div>
 
   <!-- Scrim Overlay -->
   <div class="index-hero-scrim" aria-hidden="true"></div>
 
-  <!-- Gold accent line decoration -->
-  <div class="index-hero-gold-line" aria-hidden="true"></div>
+  <!-- Decorative skyline overlay motif -->
+  <div class="index-hero-skyline-motif" aria-hidden="true"></div>
 
   <!-- Content -->
   <div class="index-hero-container">
     <div class="index-hero-content">
 
-      <!-- Eyebrow label -->
-      <div class="index-hero-eyebrow">
-        <span class="index-hero-diamond" aria-hidden="true"></span>
-        <span class="index-hero-firm-name">הררי ושות׳ — משרד עורכי-דין</span>
-        <span class="index-hero-diamond" aria-hidden="true"></span>
-      </div>
+      <!-- Firm label -->
+      <div class="index-hero-label">הררי ושות׳ — משרד עורכי-דין</div>
 
-      <!-- Main Heading -->
-      <h1 class="index-hero-h1">ייצוג משפטי מקצועי<br><span class="index-hero-accent-text">בנזקי גוף וליווי עסקי</span></h1>
+      <!-- Gold accent line -->
+      <div class="index-hero-accent-line" aria-hidden="true"></div>
+
+      <!-- Main Headline -->
+      <h1 class="index-hero-h1">ייצוג משפטי מקצועי<br><span class="index-hero-h1-accent">בנזקי גוף וליווי עסקי</span></h1>
 
       <!-- Subtitle -->
       <h3 class="index-hero-h3">אנו מלווים יחידים הנפגעים בתאונות דרכים ורשלנות רפואית, לצד חברות הזקוקות לייעוץ שוטף וניסוח חוזים — עם מחויבות מלאה לתוצאה הטובה ביותר עבורכם.</h3>
@@ -1064,8 +1076,8 @@
 
   <!-- Bottom divider -->
   <div class="index-hero-divider-wrapper">
-    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,70 L0,40 Q180,10 360,32 T720,22 Q900,12 1080,30 T1440,18 L1440,70 Z" fill="#FFFFFF"></path>
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,50 Q180,20 360,45 T720,30 Q900,15 1080,40 T1440,28 L1440,80 Z" fill="#FFFFFF"></path>
     </svg>
   </div>
 </section>
