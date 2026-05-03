@@ -1309,39 +1309,6 @@ window.onload = function() {
 })();
 
 
-/* Added Component Script */
-// Animate nodes in on load with staggered delay
-document.addEventListener('DOMContentLoaded', function () {
-  const nodes = document.querySelectorAll('.orbit-node');
-  nodes.forEach(function (node, i) {
-    node.style.opacity = '0';
-    node.style.transition = 'opacity 0.5s ease ' + (0.3 + i * 0.12) + 's, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease';
-    setTimeout(function () {
-      node.style.opacity = '1';
-    }, (300 + i * 120));
-  });
-
-  const center = document.querySelector('.orbit-center-inner');
-  if (center) {
-    center.style.opacity = '0';
-    center.style.transition = 'opacity 0.6s ease 0.15s';
-    setTimeout(function () {
-      center.style.opacity = '1';
-    }, 150);
-  }
-
-  // Animate SVG lines
-  const lines = document.querySelectorAll('.orbit-line, .orbit-line-arrow');
-  lines.forEach(function (line, i) {
-    line.style.opacity = '0';
-    line.style.transition = 'opacity 0.4s ease ' + (0.5 + i * 0.08) + 's';
-    setTimeout(function () {
-      line.style.opacity = '1';
-    }, (500 + i * 80));
-  });
-});
-
-
 /* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 (function(){
   try {
