@@ -7713,15 +7713,13 @@ body.accessibility-widget-visible ._access-menu {
   border-radius: 0;
 }
 
-/* Scrim overlay */
 .index-hero-section .index-hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-color: #183153;
-  background-image:
-    linear-gradient(to top,
+  background-color: transparent;
+  background-image: linear-gradient(to top,
       rgba(24, 49, 83, 0.92) 0%,
       rgba(24, 49, 83, 0.78) 40%,
       rgba(24, 49, 83, 0.50) 70%,
