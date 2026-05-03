@@ -7946,6 +7946,334 @@ body.accessibility-widget-visible ._access-menu {
 }
 /* Batch: Show WhatsApp floating button on desktop too */
 body .whatsapp-float { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+
+/* Added Component Styles */
+/* ===== ORBIT SECTION ===== */
+.orbit-section {
+  background: var(--gradient-primary, linear-gradient(135deg, #1B2B4B 0%, #2C3E6B 100%));
+  padding: 90px 20px;
+  font-family: system-ui, sans-serif;
+  direction: rtl;
+  overflow: hidden;
+  position: relative;
+}
+
+.orbit-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.orbit-container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.orbit-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.orbit-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.orbit-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: rgba(255,255,255,0.72);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ===== DIAGRAM WRAPPER ===== */
+.orbit-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+}
+
+/* SVG Lines */
+.orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbit-line {
+  stroke: rgba(255,255,255,0.15);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.orbit-line-arrow {
+  stroke: rgba(100, 180, 255, 0.55);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: none;
+}
+
+.orbit-arrow-polygon {
+  fill: rgba(100, 180, 255, 0.8);
+}
+
+/* ===== CENTER CIRCLE ===== */
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 22%;
+  aspect-ratio: 1 / 1;
+}
+
+.orbit-center-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #2a4a7f, #1a2f55);
+  border: 3px solid rgba(100, 180, 255, 0.6);
+  box-shadow:
+    0 0 0 8px rgba(100, 180, 255, 0.1),
+    0 0 40px rgba(100, 180, 255, 0.25),
+    0 8px 32px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8%;
+  box-sizing: border-box;
+  animation: orbit-pulse 3s ease-in-out infinite;
+}
+
+@keyframes orbit-pulse {
+  0%, 100% { box-shadow: 0 0 0 8px rgba(100,180,255,0.1), 0 0 40px rgba(100,180,255,0.25), 0 8px 32px rgba(0,0,0,0.4); }
+  50%       { box-shadow: 0 0 0 14px rgba(100,180,255,0.15), 0 0 60px rgba(100,180,255,0.35), 0 8px 32px rgba(0,0,0,0.4); }
+}
+
+.orbit-center-icon {
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.orbit-center-name {
+  font-size: clamp(0.55rem, 1.4vw, 0.85rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.orbit-center-sub {
+  font-size: clamp(0.4rem, 1vw, 0.65rem);
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+/* ===== ORBIT NODES ===== */
+.orbit-node {
+  position: absolute;
+  z-index: 5;
+  width: 18%;
+  aspect-ratio: 1 / 1;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(100, 180, 255, 0.35);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4%;
+  box-sizing: border-box;
+  cursor: default;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.orbit-node:hover {
+  transform: scale(1.12);
+  background: rgba(100, 180, 255, 0.18);
+  box-shadow: 0 0 24px rgba(100, 180, 255, 0.3), 0 4px 20px rgba(0,0,0,0.3);
+  border-color: rgba(100, 180, 255, 0.7);
+  z-index: 20;
+}
+
+/* Node Positions — mapped to SVG coordinates (out of 700px viewBox) */
+/* Top:          x=350, y=95  → 50%, 13.6% */
+.orbit-node--top         { top: 0%;    left: 50%; transform: translate(-50%, 0%); }
+/* Top-Right:    x=590, y=210 → 84.3%, 30% */
+.orbit-node--top-right   { top: 15%;   left: 72%; transform: translate(-50%, 0%); }
+/* Bottom-Right: x=590, y=490 → 84.3%, 70% */
+.orbit-node--bottom-right{ top: 62%;   left: 72%; transform: translate(-50%, 0%); }
+/* Bottom:       x=350, y=605 → 50%, 86.4% */
+.orbit-node--bottom      { top: 79%;   left: 50%; transform: translate(-50%, 0%); }
+/* Bottom-Left:  x=110, y=490 → 15.7%, 70% */
+.orbit-node--bottom-left { top: 62%;   left: 28%; transform: translate(-50%, 0%); }
+/* Top-Left:     x=110, y=210 → 15.7%, 30% */
+.orbit-node--top-left    { top: 15%;   left: 28%; transform: translate(-50%, 0%); }
+
+/* Hover overrides for positioned nodes */
+.orbit-node--top:hover         { transform: translate(-50%, 0%) scale(1.12); }
+.orbit-node--top-right:hover   { transform: translate(-50%, 0%) scale(1.12); }
+.orbit-node--bottom-right:hover{ transform: translate(-50%, 0%) scale(1.12); }
+.orbit-node--bottom:hover      { transform: translate(-50%, 0%) scale(1.12); }
+.orbit-node--bottom-left:hover { transform: translate(-50%, 0%) scale(1.12); }
+.orbit-node--top-left:hover    { transform: translate(-50%, 0%) scale(1.12); }
+
+.orbit-node-icon {
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.orbit-node-title {
+  font-size: clamp(0.5rem, 1.3vw, 0.8rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.orbit-node-desc {
+  display: none;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+/* Show tooltip-style desc on hover via a popup */
+.orbit-node:hover .orbit-node-desc {
+  display: block;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(24, 49, 83, 0.97);
+  border: 1px solid rgba(100,180,255,0.4);
+  border-radius: 10px;
+  padding: 10px 14px;
+  width: 160px;
+  font-size: 0.72rem;
+  white-space: normal;
+  z-index: 30;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+
+.orbit-node--bottom:hover .orbit-node-desc,
+.orbit-node--bottom-left:hover .orbit-node-desc,
+.orbit-node--bottom-right:hover .orbit-node-desc {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+
+/* ===== MOBILE CARDS ===== */
+.orbit-mobile-cards {
+  display: none;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.orbit-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(100, 180, 255, 0.25);
+  border-radius: 14px;
+  padding: 24px 18px;
+  text-align: center;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.orbit-card:hover {
+  transform: translateY(-4px);
+  background: rgba(100, 180, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.orbit-card-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.orbit-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.orbit-card-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+  .orbit-section {
+    padding: 60px 16px;
+  }
+
+  .orbit-header {
+    margin-bottom: 0;
+  }
+
+  .orbit-diagram {
+    display: none;
+  }
+
+  .orbit-mobile-cards {
+    display: grid;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
+  .orbit-diagram {
+    max-width: 580px;
+  }
+}
+
+/* Entrance animations */
+@keyframes orbit-fadein {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.orbit-header {
+  animation: orbit-fadein 0.7s ease both;
+}
+
+.orbit-diagram {
+  animation: orbit-fadein 0.9s ease 0.2s both;
+}
+
+.orbit-mobile-cards {
+  animation: orbit-fadein 0.9s ease 0.2s both;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
