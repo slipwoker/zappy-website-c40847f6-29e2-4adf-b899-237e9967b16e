@@ -1,4 +1,6 @@
-# Business — Generative Engine Optimization Map
+# הררי ושות' - משרד עורכי-דין — Generative Engine Optimization Map
+
+> Harari & Co. is a law firm specializing in two core practice areas: personal injury law (including traffic accident claims and medical malpractice) and corporate legal services (including ongoing legal counsel and contract drafting). The firm positions itself as a professional and trustworthy legal partner for both individuals seeking compensation and businesses requiring ongoing legal support.
 
 ---
 
@@ -36,12 +38,49 @@ Information about WCAG compliance and accessibility features.
 
 ---
 
-# Business Context (for LLM understanding)
+## How to Contact Us
 
-## About Business
+- Email: office@yharari-law.co.il
+- Phone: 074-7642466
+- Phone (tel): tel:0747642466
+- Address: כרמיאל
+
+### Contact form
+- URL: https://yharari-law.co.il/contact
+- Endpoint: https://yharari-law.co.il/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel, required)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
+
 ---
 
-# Additional Resources
+# Business Context (for LLM understanding)
 
-- **Sitemap**: https://yharari-law.co.il/sitemap.xml
-- **Robots.txt**: https://yharari-law.co.il/robots.txt
+## About הררי ושות' - משרד עורכי-דין
+Harari & Co. is a law firm specializing in two core practice areas: personal injury law (including traffic accident claims and medical malpractice) and corporate legal services (including ongoing legal counsel and contract drafting). The firm positions itself as a professional and trustworthy legal partner for both individuals seeking compensation and businesses requiring ongoing legal support.
+
+## Services/Products
+- נזקי גוף - פלת"ד
+- רשלנות רפואית
+- ליווי חברות - ייעוץ שוטף
+- עריכת חוזים
+
+## Target Audience
+- לקוחות תאגידיים
+- לקוחות פרטיים
+
+## Industry
+משפט / שירותים משפטיים
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://yharari-law.co.il/sitemap.xml
+- Robots: https://yharari-law.co.il/robots.txt
+- Flattened page text (for LLMs): https://yharari-law.co.il/llms-full.txt
