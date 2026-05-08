@@ -1498,6 +1498,13 @@
     </div>
   </div>
 
+  <!-- Mobile scrollbar hide -->
+  <style>
+    @media (max-width: 768px) {
+      .index-reviews-section .reviews-grid::-webkit-scrollbar { display: none !important; height: 0 !important; }
+      .index-reviews-section .reviews-grid { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+    }
+  </style>
   <!-- Bottom Transition: gradient fade from deep navy to ivory with gold line -->
   <div class="reviews-bottom-transition" aria-hidden="true">
     <div class="reviews-gold-line"></div>
