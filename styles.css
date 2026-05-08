@@ -7892,7 +7892,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   overflow-y: visible;
   padding-bottom: 12px;
   direction: rtl;
-  overflow: auto hidden;
+  overflow: auto;
 }
 
 .index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
