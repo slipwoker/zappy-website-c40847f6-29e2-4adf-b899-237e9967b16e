@@ -249,6 +249,8 @@
 
 
 
+
+
 <style data-zappy-section-v2-css="true">
 /* V2 Regenerated Section CSS */
 .index-hero-section {
@@ -256,262 +258,275 @@
   width: 100%;
   min-height: 100vh;
   overflow: visible;
-  background-color: #183153;
-  color: var(--text-light);
   display: flex;
   align-items: center;
-  padding-bottom: 80px;
+  background-color: #183153;
+  color: var(--text-light);
+  padding-bottom: 72px;
   direction: rtl;
 }
 
-/* Background image layer */
-.index-hero-section .index-hero-bg {
+/* Background Image Layer */
+.index-hero-section .hero-bg-wrapper {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
 }
 
-.index-hero-section .index-hero-bg-img {
+.index-hero-section .hero-bg-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  border-radius: 0;
+  background-position: center;
+  background-size: cover;
 }
 
-/* Scrim overlay */
-.index-hero-section .index-hero-scrim {
+/* Scrim Overlay */
+.index-hero-section .hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-color: #183153;
+  background-color: rgba(24, 49, 83, 0.72);
   background-image:
-    linear-gradient(to top,
-      rgba(24, 49, 83, 0.92) 0%,
-      rgba(24, 49, 83, 0.78) 40%,
-      rgba(24, 49, 83, 0.50) 70%,
-      rgba(24, 49, 83, 0.30) 100%
-    );
+    linear-gradient(to top, rgba(27, 43, 75, 0.92) 0%, rgba(27, 43, 75, 0.55) 55%, rgba(27, 43, 75, 0.35) 100%);
 }
 
-/* Skyline decorative motif */
-.index-hero-section .index-hero-skyline-motif {
+/* Skyline motif decoration */
+.index-hero-section .hero-skyline-motif {
   position: absolute;
-  bottom: 80px;
-  left: 0;
+  bottom: 72px;
+  inset-inline-start: 0;
   width: 100%;
-  height: 220px;
+  height: 180px;
   z-index: 2;
   pointer-events: none;
-  background-image: linear-gradient(to top, rgba(24,49,83,0.62) 0%, transparent 100%);
+  background-image:
+    linear-gradient(to top, rgba(27, 43, 75, 0.60) 0%, transparent 100%);
 }
 
 /* Container */
-.index-hero-section .index-hero-container {
+.index-hero-section .hero-container {
   position: relative;
   z-index: 10;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 160px 48px 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  padding: 140px 40px 60px;
 }
 
-/* Content block */
-.index-hero-section .index-hero-content {
-  max-width: 700px;
-  text-align: right;
-}
-
-/* Firm label */
-.index-hero-section .index-hero-label {
-  font-family: 'Inter', 'Source Sans 3', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-  display: inline-block;
-  text-align: right;
-}
-
-/* Gold accent line */
-.index-hero-section .index-hero-accent-line {
-  width: 56px;
-  height: 2px;
-  background: linear-gradient(90deg, #C6A46C 0%, #e8d5a3 60%, #C6A46C 100%);
-  margin-bottom: 24px;
+/* Content Wrapper */
+.index-hero-section .hero-content-wrapper {
+  max-width: 760px;
   margin-inline-start: 0;
+  text-align: right;
+}
+
+/* Label */
+.index-hero-section .hero-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-direction: row;
+  margin-bottom: 28px;
+}
+
+.index-hero-section .hero-label-line {
+  display: block;
+  width: 36px;
+  height: 2px;
+  background: #C9A84C;
+  flex-shrink: 0;
   border-radius: 2px;
 }
 
+.index-hero-section .hero-label-text {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #C9A84C;
+}
+
 /* H1 */
-.index-hero-section .index-hero-h1 {
+.index-hero-section .hero-h1 {
   font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
   font-size: 3rem;
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  line-height: 1.2;
   color: var(--text-light);
-  margin: 0 0 12px;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.45);
-  text-align: right;
+  margin: 0 0 20px 0;
+  text-shadow: 0 2px 24px rgba(24, 49, 83, 0.55);
+  letter-spacing: -0.01em;
 }
 
-.index-hero-section .index-hero-h1-accent {
-  color: var(--accent);
+.index-hero-section .hero-h1-accent {
+  color: #C9A84C;
   display: inline;
 }
 
-/* H3 subtitle */
-.index-hero-section .index-hero-h3 {
+/* Diamond separator */
+.index-hero-section .hero-diamond-sep {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+/* H3 Subtitle */
+.index-hero-section .hero-h3 {
   font-family: 'Inter', 'Source Sans 3', sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.75;
   color: rgba(250, 249, 247, 0.88);
-  margin: 0 0 36px;
+  margin: 0 0 40px 0;
   max-width: 620px;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.35);
-  text-align: right;
+  text-shadow: 0 1px 8px rgba(24, 49, 83, 0.4);
 }
 
-/* CTA group */
-.index-hero-section .index-hero-ctas {
+/* CTA Buttons */
+.index-hero-section .hero-ctas {
   display: flex;
   flex-direction: row;
-  gap: 16px;
   align-items: center;
+  gap: 28px;
   flex-wrap: wrap;
-  justify-content: flex-start;
 }
 
-/* Primary button */
-.index-hero-section .index-hero-btn-primary {
+.index-hero-section .btn-pill.hero-btn-primary {
   display: inline-block;
-  background: var(--accent);
-  color: #183153;
-  font-family: 'Inter', 'Source Sans 3', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  border-radius: 100px;
   padding: 14px 32px;
-  border-radius: 4px;
+  background: #C9A84C;
+  color: #1B2B4B;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
   text-decoration: none;
   border: none;
-  box-shadow: 0 12px 40px rgba(198, 164, 108, 0.30);
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(201, 168, 76, 0.35);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 
-.index-hero-section .index-hero-btn-primary:hover {
-  background: #e8d5a3;
-  color: #183153;
+.index-hero-section .btn-pill.hero-btn-primary:hover {
+  background: #e0c070;
   transform: translateY(-3px);
-  box-shadow: 0 18px 48px rgba(198, 164, 108, 0.45);
+  box-shadow: 0 12px 40px rgba(201, 168, 76, 0.50);
 }
 
-/* Secondary button */
-.index-hero-section .index-hero-btn-secondary {
-  display: inline-block;
+.index-hero-section .btn-ghost.hero-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: transparent;
-  color: var(--text-light);
+  color: #C9A84C;
+  border: none;
+  padding: 10px 0;
   font-family: 'Inter', 'Source Sans 3', sans-serif;
-  font-size: 0.95rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  padding: 13px 28px;
-  border-radius: 4px;
-  border: 1.5px solid rgba(198, 164, 108, 0.70);
-  text-decoration: none;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
   white-space: nowrap;
+  text-decoration-color: rgba(201, 168, 76, 0.5);
 }
 
-.index-hero-section .index-hero-btn-secondary:hover {
-  background: rgba(198, 164, 108, 0.12);
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-3px);
+.index-hero-section .btn-ghost.hero-btn-ghost:hover {
+  color: #e0c070;
+  text-decoration-color: #e0c070;
+  gap: 12px;
 }
 
-/* Bottom divider wrapper */
-.index-hero-section .index-hero-divider-wrapper {
+.index-hero-section .hero-arrow {
+  font-size: 1.1rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.index-hero-section .btn-ghost.hero-btn-ghost:hover .hero-arrow {
+  transform: translateX(-4px);
+}
+
+/* Bottom Divider */
+.index-hero-section .hero-divider-wrapper {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 72px;
   pointer-events: none;
   z-index: 5;
 }
 
-.index-hero-section .index-hero-divider-wrapper svg {
+.index-hero-section .hero-divider-wrapper svg {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-/* ─── RESPONSIVE ─── */
+/* ─── MOBILE ─── */
 @media (max-width: 768px) {
   .index-hero-section {
     min-height: 100svh;
-    align-items: flex-end;
-    padding-bottom: 80px;
-  }
-
-  .index-hero-section .index-hero-container {
-    padding: 100px 20px 48px;
     align-items: flex-start;
+    padding-bottom: 72px;
   }
 
-  .index-hero-section .index-hero-content {
+  .index-hero-section .hero-container {
+    padding: 110px 20px 48px;
+  }
+
+  .index-hero-section .hero-content-wrapper {
     max-width: 100%;
   }
 
-  .index-hero-section .index-hero-h1 {
-    font-size: 2.1rem;
-    line-height: 1.2;
+  .index-hero-section .hero-h1 {
+    font-size: 2rem;
+    margin-bottom: 16px;
   }
 
-  .index-hero-section .index-hero-h3 {
-    font-size: 0.97rem;
+  .index-hero-section .hero-h3 {
+    font-size: 1rem;
+    margin-bottom: 32px;
     max-width: 100%;
-    margin-bottom: 28px;
   }
 
-  .index-hero-section .index-hero-ctas {
+  .index-hero-section .hero-ctas {
     flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    width: 100%;
+    align-items: flex-end;
+    gap: 18px;
   }
 
-  .index-hero-section .index-hero-btn-primary,
-  .index-hero-section .index-hero-btn-secondary {
+  .index-hero-section .btn-pill.hero-btn-primary {
+    width: 100%;
     text-align: center;
-    width: 100%;
-    padding: 14px 20px;
+    padding: 14px 24px;
   }
 
-  .index-hero-section .index-hero-skyline-motif {
-    height: 140px;
+  .index-hero-section .hero-label {
+    margin-bottom: 20px;
+  }
+
+  .index-hero-section .hero-skyline-motif {
+    height: 100px;
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .index-hero-section .index-hero-container {
-    padding: 140px 32px 60px;
+/* ─── LARGE DESKTOP ─── */
+@media (min-width: 1200px) {
+  .index-hero-section .hero-h1 {
+    font-size: 3.5rem;
   }
 
-  .index-hero-section .index-hero-h1 {
-    font-size: 2.5rem;
+  .index-hero-section .hero-h3 {
+    font-size: 1.2rem;
   }
 }
 </style>
@@ -1065,48 +1080,53 @@
   
   <main>
     <section class="index-hero-section" data-layout-spec="בית-hero" dir="rtl" data-hero-type="fullscreen-scrim" data-zappy-section="true" id="index-hero-section">
-  <!-- Background Image Layer -->
-  <div class="index-hero-bg">
-    <img data-hero-bg="true" alt="משרד עורכי דין הררי ושות' - ייצוג משפטי מקצועי" class="index-hero-bg-img" src="/assets/site-index-hero-image-1.webp" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%" data-zappy-editable-image="true" data-hero-background="true" data-element-type="image" data-element-id="img-1777896376953-e52jxdqvj">
+  <!-- Background Image -->
+  <div class="hero-bg-wrapper">
+    <div class="hero-bg-image" style="background-image: url('assets/site-index-hero-image-1.webp'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>
   </div>
 
   <!-- Scrim Overlay -->
-  <div class="index-hero-scrim" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
 
-  <!-- Decorative skyline overlay motif -->
-  <div class="index-hero-skyline-motif" aria-hidden="true"></div>
+  <!-- Decorative skyline motif -->
+  <div class="hero-skyline-motif" aria-hidden="true"></div>
 
   <!-- Content -->
-  <div class="index-hero-container">
-    <div class="index-hero-content">
+  <div class="hero-container">
+    <div class="hero-content-wrapper">
 
-      <!-- Firm label -->
-      <div class="index-hero-label">הררי ושות׳ — משרד עורכי-דין</div>
+      <!-- Label -->
+      <div class="hero-label">
+        <span class="hero-label-line" aria-hidden="true"></span>
+        <span class="hero-label-text">הררי ושות׳ — משרד עורכי-דין</span>
+      </div>
 
-      <!-- Gold accent line -->
-      <div class="index-hero-accent-line" aria-hidden="true"></div>
+      <!-- Heading -->
+      <h1 class="hero-h1">אנחנו לא רק מייצגים —<br>אנחנו נלחמים.<br><span class="hero-h1-accent">בכל תיק, בכל פעם.</span></h1>
 
-      <!-- Main Headline -->
-      <h1 class="index-hero-h1" style="">אנחנו לא רק מייצגים - אנחנו נלחמים.&nbsp;<br><span class="index-hero-h1-accent">בכל תיק, בכל פעם.&nbsp;</span></h1>
+      <!-- Gold diamond separator -->
+      <div class="hero-diamond-sep" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-no-icon-edit="true">
+          <rect x="7" y="0.5" width="9.19" height="9.19" rx="0.5" transform="rotate(45 7 0.5)" fill="#C9A84C"></rect>
+        </svg>
+      </div>
 
       <!-- Subtitle -->
-      <h3 class="index-hero-h3" style="">
+      <h3 class="hero-h3">בין אם נפגעתם בתאונה ובין אם נקלעתם לסכסוך משפטי — אנחנו יודעים איך לנצח.</h3>
 
-בין אם נפגעתם בתאונה ובין אם נקלעתם לסכסוך משפטי - אנחנו יודעים איך לנצח.&nbsp;</h3>
-
-      <!-- CTA Buttons -->
-      <div class="index-hero-ctas">
-        <a href="/contact" class="index-hero-btn-primary" data-element-type="button" data-element-id="btn-1777896376950-joiztba06" data-native-element="true" style="outline: none;">לקביעת פגישת ייעוץ</a>
-        <a href="/practice-areas" class="index-hero-btn-secondary" data-element-type="button" data-element-id="btn-1777896376950-1n0z5nldq" data-native-element="true" style="outline: none;">הכירו את המשרד</a>
+      <!-- CTAs -->
+      <div class="hero-ctas">
+        <a href="/contact" class="btn-pill hero-btn-primary">לקביעת פגישת ייעוץ</a>
+        <a href="/practice-areas" class="btn-ghost hero-btn-ghost">הכירו את המשרד <span class="hero-arrow" aria-hidden="true">←</span></a>
       </div>
 
     </div>
   </div>
 
   <!-- Bottom divider -->
-  <div class="index-hero-divider-wrapper">
-    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,50 Q180,20 360,45 T720,30 Q900,15 1080,40 T1440,28 L1440,80 Z" fill="#FFFFFF"></path>
+  <div class="hero-divider-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,72 L0,36 Q120,18 240,30 T480,24 Q600,18 720,28 T960,22 Q1080,18 1200,28 T1440,24 L1440,72 Z" fill="#FFFFFF"></path>
     </svg>
   </div>
 </section>
@@ -1119,7 +1139,7 @@
       <p class="index-services-eyebrow" style="color: rgb(24, 49, 83) !important;">תחומי התמחות</p>
       <h2 class="index-services-heading">ייצוג מקצועי בשני מסלולים משפטיים מרכזיים</h2>
       <div class="index-services-gold-rule" aria-hidden="true"></div>
-      <p class="index-services-subtext" style="">משרד עורכי-דין הררי ושות' מציע ייעוץ וייצוג משפטי מותאם אישית — בין אם מדובר בתביעת פיצויים בגין נזקי גוף ובין אם בליווי עסקי שוטף. השילוב הייחודי בין מיומנות בליטיגציה מסחרית לבין התמחות בדיני נזיקין מאפשר ניהול סיכונים רחב לצד אסטרטגיה הממקסמת את התוצאה הסופית בכל תיק.</p>
+      <p class="index-services-subtext" >משרד עורכי-דין הררי ושות' מציע ייעוץ וייצוג משפטי מותאם אישית — בין אם מדובר בתביעת פיצויים בגין נזקי גוף ובין אם בליווי עסקי שוטף. השילוב הייחודי בין מיומנות בליטיגציה מסחרית לבין התמחות בדיני נזיקין מאפשר ניהול סיכונים רחב לצד אסטרטגיה הממקסמת את התוצאה הסופית בכל תיק.</p>
     </div>
 
     <!-- Two-Column Service Panels -->
@@ -1136,9 +1156,9 @@
             </svg>
           </div>
           <div class="index-services-panel-accent-rule" aria-hidden="true"></div>
-          <h3 class="index-services-panel-title" style="">נזקי גוף&nbsp;</h3>
-          <p class="index-services-panel-desc" style="">המשרד מתמחה בייצוג תובעים בתביעות נזקי גוף תוך דגש על מיצוי מלא של זכויות ופיצוי מקסימלי. אנו מלווים את לקוחותינו לאורך כל ההליך המשפטי — מהגשת התביעה ועד לקבלת הפיצוי.</p>
-          <ul class="index-services-panel-list" style=""><li class="index-services-panel-list-item">
+          <h3 class="index-services-panel-title" >נזקי גוף&nbsp;</h3>
+          <p class="index-services-panel-desc" >המשרד מתמחה בייצוג תובעים בתביעות נזקי גוף תוך דגש על מיצוי מלא של זכויות ופיצוי מקסימלי. אנו מלווים את לקוחותינו לאורך כל ההליך המשפטי — מהגשת התביעה ועד לקבלת הפיצוי.</p>
+          <ul class="index-services-panel-list" ><li class="index-services-panel-list-item">
               <span class="index-services-list-dot" aria-hidden="true"></span>
               <span>רשלנות רפואית</span>
             </li><li class="index-services-panel-list-item">
@@ -1157,7 +1177,7 @@
           <div class="index-services-panel-image-wrap">
             <div data-zappy-zoom-wrapper="true" data-element-id="img-1777534125967-0hot1w0bd" data-element-type="image" data-zappy-zoom-wrapper-width="588px" data-zappy-zoom-wrapper-height="256px" data-zappy-zoom-wrapper-width-mode="px" style="height: 256px !important; position: relative !important; overflow: hidden !important; width: 588px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; display: block !important;" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" data-zappy-zoom-wrapper-align="center"><img data-placeholder="index-services-image-1" data-context="Professional legal office setting, a lawyer reviewing medical documents and accident reports at a polished wooden desk, warm institutional lighting, navy and gold tones, law firm atmosphere, editorial photography style" width="520" height="300" src="/assets/site-index-services-image-1-1777899888714-u3cwb1.webp?v=1777899890856" alt="ייצוג משפטי בתביעות נזקי גוף ורשלנות רפואית" data-element-type="image" data-element-id="img-1777534125967-0hot1w0bd" style="display: block !important; object-position: 50% 50% !important; object-fit: cover !important; width: 100% !important; height: 100% !important; max-width: none !important; margin: 0px !important; left: 0% !important; top: 0% !important; max-height: none !important; position: absolute !important;" data-zappy-original-width="588" data-zappy-original-height="256" data-zappy-object-position="50% 50%" data-zappy-zoom="1"></div>
           </div>
-          <p style=""><a href="/contact" class="index-services-panel-cta" data-native-element="true" data-element-id="btn-1777898648425-f0kbvlpnt" data-element-type="button" style="outline: none;">לפגישת ייעוץ ראשונית <span aria-hidden="true">←</span></a>
+          <p ><a href="/contact" class="index-services-panel-cta" data-native-element="true" data-element-id="btn-1777898648425-f0kbvlpnt" data-element-type="button" style="outline: none;">לפגישת ייעוץ ראשונית <span aria-hidden="true">←</span></a>
         </p></div>
       </article>
 
@@ -1174,8 +1194,8 @@
           </div>
           <div class="index-services-panel-accent-rule" aria-hidden="true"></div>
           <h3 class="index-services-panel-title">ליווי עסקי וחברות</h3>
-          <p class="index-services-panel-desc" style="">המשרד משמש כיועץ משפטי שוטף לחברות, עסקים ויזמים — ומספק מענה מקיף לכלל הצרכים המשפטיים של הארגון. אנו מאמינים בגישה מונעת שמצמצמת סיכונים לפני שהם מתממשים.</p>
-          <ul class="index-services-panel-list" style=""><li class="index-services-panel-list-item">
+          <p class="index-services-panel-desc" >המשרד משמש כיועץ משפטי שוטף לחברות, עסקים ויזמים — ומספק מענה מקיף לכלל הצרכים המשפטיים של הארגון. אנו מאמינים בגישה מונעת שמצמצמת סיכונים לפני שהם מתממשים.</p>
+          <ul class="index-services-panel-list" ><li class="index-services-panel-list-item">
               <span class="index-services-list-dot" aria-hidden="true"></span>
               <span>ייעוץ משפטי שוטף לחברות ועסקים</span>
             </li><li class="index-services-panel-list-item">
@@ -1218,7 +1238,7 @@
       <div class="index-proof-diamond" aria-hidden="true">
         <svg data-no-icon-edit="true" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="6" width="8.485" height="8.485" transform="rotate(-45 6 6)" fill="#C6A46C"></rect></svg>
       </div>
-      <p class="index-proof-lead" style="">במשרד עורכי-דין הררי ושות' אנו מאמינים כי ייצוג משפטי מצוין נשען על שלושה אדנים: ניתוח מעמיק של כל תיק, טיפול אישי ומסור, ושקיפות מלאה לאורך כל הדרך. בין אם מדובר בתביעת נזקי גוף ובין אם מדובר בליווי עסקי שוטף, הלקוח מקבל ממשרדנו את תשומת הלב המלאה שמגיעה לו.</p>
+      <p class="index-proof-lead" >במשרד עורכי-דין הררי ושות' אנו מאמינים כי ייצוג משפטי מצוין נשען על שלושה אדנים: ניתוח מעמיק של כל תיק, טיפול אישי ומסור, ושקיפות מלאה לאורך כל הדרך. בין אם מדובר בתביעת נזקי גוף ובין אם מדובר בליווי עסקי שוטף, הלקוח מקבל ממשרדנו את תשומת הלב המלאה שמגיעה לו.</p>
     </div>
 
     <!-- Three Proof Cards -->
@@ -1234,7 +1254,7 @@
         </div>
         <div class="index-proof-card-content">
           <h3 class="index-proof-card-title">בהירות אסטרטגית</h3>
-          <p class="index-proof-card-text" style="">אנו מנתחים כל תיק לעומקו ומגבשים אסטרטגיה משפטית ברורה ומדויקת. הלקוח מבין בכל שלב מה מתרחש, מה האפשרויות, ומה צפוי — ללא עמימות וללא הפתעות.</p>
+          <p class="index-proof-card-text" >אנו מנתחים כל תיק לעומקו ומגבשים אסטרטגיה משפטית ברורה ומדויקת. הלקוח מבין בכל שלב מה מתרחש, מה האפשרויות, ומה צפוי — ללא עמימות וללא הפתעות.</p>
         </div>
       </article>
 
@@ -1247,7 +1267,7 @@
         </div>
         <div class="index-proof-card-content">
           <h3 class="index-proof-card-title">טיפול מקצועי ומסור</h3>
-          <p class="index-proof-card-text" style="">כל תיק מטופל ומלווה באופן אישי על ידי עו"ד ממשרדנו. אצלנו, התיק שלך לא עובר מיד ליד - הוא מקבל את מלוא תשומת הלב מהרגע הראשון.&nbsp;</p>
+          <p class="index-proof-card-text" >כל תיק מטופל ומלווה באופן אישי על ידי עו"ד ממשרדנו. אצלנו, התיק שלך לא עובר מיד ליד - הוא מקבל את מלוא תשומת הלב מהרגע הראשון.&nbsp;</p>
         </div>
       </article>
 
@@ -1339,7 +1359,7 @@
     <div class="reviews-intro">
       <h2 class="reviews-heading">לקוחותינו מדברים בעד עצמם</h2>
       <div class="reviews-gold-rule" aria-hidden="true"></div>
-      <p class="reviews-subtext" style="">אנו מאמינים שהמדד האמיתי לעבודתנו הוא האמון שלקוחותינו נותנים בנו. אנו מציעים ייעוץ משפטי ברור, מקצועי ומחויב — בין אם מדובר בתביעת נזקי גוף, רשלנות רפואית, או ליווי שוטף לעסקים ולחברות.</p>
+      <p class="reviews-subtext" >אנו מאמינים שהמדד האמיתי לעבודתנו הוא האמון שלקוחותינו נותנים בנו. אנו מציעים ייעוץ משפטי ברור, מקצועי ומחויב — בין אם מדובר בתביעת נזקי גוף, רשלנות רפואית, או ליווי שוטף לעסקים ולחברות.</p>
     </div>
 
     <!-- Three-Column Review Cards -->
@@ -1353,7 +1373,7 @@
           </svg>
         </div>
         <blockquote class="review-text">
-          <p style="">
+          <p >
 
 אם עברתם תאונת דרכים ואתם מחפשים ייצוג מקצועי באמת, אני ממליץ בחום לפנות לעו"ד יקיר הררי. הוא והצוות שלו ליוו אותי יד ביד מול חברת הביטוח, דאגו שכל התהליך יהיה פשוט ומובן והשיגו פיצוי גבוה מעבר לכל הציפיות שלי. באמת רמה אחת מעל כולם.
 
@@ -1364,8 +1384,8 @@
             <span aria-hidden="true">★★★★★</span>
           </div>
           <div class="review-client">
-            <span class="review-name" style="">י. ד</span>
-            <span class="review-type" style="">לקוח פרטי — תבעית פלת"ד</span>
+            <span class="review-name" >י. ד</span>
+            <span class="review-type" >לקוח פרטי — תבעית פלת"ד</span>
           </div>
         </footer>
       </article>
@@ -1378,14 +1398,14 @@
           </svg>
         </div>
         <blockquote class="review-text">
-          <p style="">הררי ושות' מלווים את החברה שלנו כבר שלוש שנים. הם מגיבים מהר, מסבירים את הסיכונים בצורה עניינית, והחוזים שלהם מדויקים וממוקדים. תחושת הביטחון שמקבלים מליווי משפטי ברמה כזו — שווה כל שקל.</p>
+          <p >הררי ושות' מלווים את החברה שלנו כבר שלוש שנים. הם מגיבים מהר, מסבירים את הסיכונים בצורה עניינית, והחוזים שלהם מדויקים וממוקדים. תחושת הביטחון שמקבלים מליווי משפטי ברמה כזו — שווה כל שקל.</p>
         </blockquote>
         <footer class="review-footer">
           <div class="review-stars" aria-label="דירוג 5 כוכבים">
             <span aria-hidden="true">★★★★★</span>
           </div>
           <div class="review-client">
-            <span class="review-name" style="">ע.ב&nbsp;</span>
+            <span class="review-name" >ע.ב&nbsp;</span>
             <span class="review-type">לקוח עסקי — ייעוץ משפטי שוטף</span>
           </div>
         </footer>
@@ -1399,14 +1419,14 @@
           </svg>
         </div>
         <blockquote class="review-text">
-          <p style="">עברתי רשלנות רפואית בטיפול שיניים, סבלתי מכאבים כרוניים ומדלקות חוזרות ונאלצתי להוציא סכומי עתק כדי לתקן את הנזק שנגרם מהטיפול. מהרגע שהגעתי למשרד, הרגשתי שיש לי גב מקצועי.עורך דין נזקי גוף שמתמחה במקרים של רשלנות רפואית, זה עו"ד הררי.&nbsp;</p>
+          <p >עברתי רשלנות רפואית בטיפול שיניים, סבלתי מכאבים כרוניים ומדלקות חוזרות ונאלצתי להוציא סכומי עתק כדי לתקן את הנזק שנגרם מהטיפול. מהרגע שהגעתי למשרד, הרגשתי שיש לי גב מקצועי.עורך דין נזקי גוף שמתמחה במקרים של רשלנות רפואית, זה עו"ד הררי.&nbsp;</p>
         </blockquote>
         <footer class="review-footer">
           <div class="review-stars" aria-label="דירוג 5 כוכבים">
             <span aria-hidden="true">★★★★★</span>
           </div>
           <div class="review-client">
-            <span class="review-name" style="">י. ו</span>
+            <span class="review-name" >י. ו</span>
             <span class="review-type">לקוחה פרטית — תביעת רשלנות רפואית</span>
           </div>
         </footer>
@@ -1441,7 +1461,7 @@
           <div class="footer-logo-wrap">
             <img src="/assets/logo.webp" alt="הררי ושות' - משרד עורכי-דין" class="logo" data-element-type="image" data-element-id="img-1777539159723-89i41lwzj" data-zappy-footer-image="true" style="object-fit: cover; object-position: 50% 50%; width: 157px !important; max-width: none !important; max-height: none !important; height: auto !important;">
           </div>
-          <p class="footer-tagline" style="">מעטפת משפטית שמותאמת לצרכי הלקוח.&nbsp;</p>
+          <p class="footer-tagline" >מעטפת משפטית שמותאמת לצרכי הלקוח.&nbsp;</p>
           <div class="footer-social">
             <a href="#" aria-label="Facebook" class="social-link" style="display:none !important;"><i class="fab fa-facebook-f"></i></a>
             <a href="#" aria-label="Instagram" class="social-link" style="display:none !important;"><i class="fab fa-instagram"></i></a>
@@ -1456,7 +1476,7 @@
             ניווט מהיר
           </h3>
           <ul class="footer-nav">
-            <li><a href="/practice-areas" style=""><i class="fas fa-chevron-left footer-nav-icon" style="cursor: pointer;"></i>תחומי עיסוק</a></li>
+            <li><a href="/practice-areas" ><i class="fas fa-chevron-left footer-nav-icon" style="cursor: pointer;"></i>תחומי עיסוק</a></li>
             <li><a href="/about-the-office">אודות המשרד</a></li>
             <li><a href="/contact"><i class="fas fa-chevron-left footer-nav-icon"></i>צור קשר</a></li>
           </ul>
@@ -1468,13 +1488,13 @@
             <span class="footer-heading-accent"></span>
             פרטי התקשרות
           </h3>
-          <ul class="footer-contact" style=""><li>
+          <ul class="footer-contact" ><li>
               <span class="contact-icon"><i class="fas fa-envelope" data-element-type="icon" data-element-id="icon-1777539159722-vjw0bonuz" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
               <span class="contact-text"><a href="/cdn-cgi/l/email-protection#afc0c9c9c6cccaefd6c7ceddceddc682c3ced881ccc081c6c3"><span class="__cf_email__" data-cfemail="6c030a0a050f092c15040d1e0d1e0541000d1b420f03420500">[email&nbsp;protected]</span></a></span>
             </li><li>
               <span class="contact-icon"><i class="fas fa-phone" data-element-type="icon" data-element-id="icon-1777539159722-0t1dp3yg2" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
               <span class="contact-text"><a href="tel:074-7642466">074-7642466</a></span>
-            </li><li><a href="/" style=""><span class="contact-icon"><i class="fas fa-map-marker-alt" style="cursor: pointer;"></i></span>
+            </li><li><a href="/" ><span class="contact-icon"><i class="fas fa-map-marker-alt" style="cursor: pointer;"></i></span>
               <span class="contact-text">צפת/כרמיאל</span></a></li></ul>
         </div>
 
@@ -1484,7 +1504,7 @@
             <span class="footer-heading-accent"></span>
             שעות פעילות
           </h3>
-          <ul class="footer-hours" style=""><li><a href="/"><span class="hours-day">ראשון – חמישי</span>
+          <ul class="footer-hours" ><li><a href="/"><span class="hours-day">ראשון – חמישי</span>
               <span class="hours-time">09:00 – 18:00</span></a></li><li><a href="/"><span class="hours-day">שישי שבת</span>
               <span class="hours-time">סגור</span></a></li></ul>
           <p><a href="/contact" class="footer-cta-btn" data-element-type="button" data-element-id="btn-1777539159720-3yqgpvkqz" data-native-element="true">קבע פגישת ייעוץ</a>
@@ -1505,7 +1525,7 @@
   <div class="footer-bottom">
     <div class="footer-container">
       <div class="footer-bottom-inner">
-        <p class="footer-copyright" style="">© 2026 הררי ושות' - משרד עורכי-דין. כל הזכויות שמורות.</p>
+        <p class="footer-copyright" >© 2026 הררי ושות' - משרד עורכי-דין. כל הזכויות שמורות.</p>
         <div class="footer-legal-links">
           <a href="/privacy">מדיניות פרטיות</a>
           <span class="footer-legal-sep" aria-hidden="true">|</span>
