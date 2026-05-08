@@ -8021,6 +8021,14 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   transform: none !important;
   box-shadow: var(--shadow-elevated) !important;
 }
+
+@media (max-width: 768px) {
+.index-services-section .index-services-card {
+  width: calc(100vw - 64px) !important;
+  min-width: calc(100vw - 64px) !important;
+  max-width: calc(100vw - 64px) !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
