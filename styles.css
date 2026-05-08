@@ -3322,16 +3322,18 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   text-align: center;
 }
 
-/* Reviews Grid */
 .index-reviews-section .reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  grid-template-columns: unset;
   gap: 24px;
   direction: rtl;
   margin-bottom: 64px;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 16px;
 }
 
-/* Review Card */
 .index-reviews-section .review-card {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(198, 164, 108, 0.25);
@@ -3344,6 +3346,8 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   position: relative;
   overflow: hidden;
+  flex: 0 0 380px;
+  min-width: 380px;
 }
 
 .index-reviews-section .review-card::before {
