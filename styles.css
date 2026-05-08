@@ -3322,18 +3322,16 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   text-align: center;
 }
 
+/* Reviews Grid */
 .index-reviews-section .reviews-grid {
-  display: flex;
-  grid-template-columns: unset;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   direction: rtl;
   margin-bottom: 64px;
-  flex-direction: row;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 16px;
 }
 
+/* Review Card */
 .index-reviews-section .review-card {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(198, 164, 108, 0.25);
@@ -3346,8 +3344,6 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   position: relative;
   overflow: hidden;
-  flex: 0 0 380px;
-  min-width: 380px;
 }
 
 .index-reviews-section .review-card::before {
@@ -8052,6 +8048,31 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 .index-services-section .index-services-scroll-wrapper:hover {
   cursor: grab;
+}
+
+.index-reviews-section .reviews-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  gap: 24px !important;
+  padding-bottom: 16px !important;
+  margin-bottom: 64px;
+}
+
+.index-reviews-section .review-card {
+  flex: 0 0 calc(33.333% - 16px) !important;
+  min-width: calc(33.333% - 16px) !important;
+  max-width: calc(33.333% - 16px) !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+.index-reviews-section .review-card {
+  flex: 0 0 calc(100% - 0px) !important;
+  min-width: calc(100%) !important;
+  max-width: calc(100%) !important;
+}
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
