@@ -8002,6 +8002,25 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   font-size: 0.9rem;
 }
 }
+
+.index-services-section .index-services-scroll-wrapper {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+
+.index-services-section .index-services-scroll-row {
+  overflow: visible;
+  padding-bottom: 4px;
+}
+
+.index-services-section .index-services-card {
+  overflow: hidden !important;
+}
+
+.index-services-section .index-services-card:hover {
+  transform: none !important;
+  box-shadow: var(--shadow-elevated) !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
