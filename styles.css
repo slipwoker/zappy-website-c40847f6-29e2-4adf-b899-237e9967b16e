@@ -7891,7 +7891,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 .index-services-section .index-services-scroll-wrapper {
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   padding-bottom: 12px;
   direction: rtl;
 }
