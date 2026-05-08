@@ -7916,6 +7916,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   gap: 20px;
   width: max-content;
   direction: rtl;
+  padding-bottom: 4px;
 }
 
 .index-services-section .index-services-card {
@@ -8040,6 +8041,26 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 .index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
   display: none;
 }
+}
+
+.index-services-section .index-services-scroll-wrapper {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-behavior: smooth;
+}
+
+.index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+
+.index-services-section .index-services-scroll-wrapper::-webkit-scrollbar-track {
+  background: var(--border-light);
+  border-radius: 2px;
+}
+
+.index-services-section .index-services-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
