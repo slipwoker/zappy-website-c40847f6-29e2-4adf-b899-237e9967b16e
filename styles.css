@@ -7894,6 +7894,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   overflow-y: hidden;
   padding-bottom: 12px;
   direction: rtl;
+  cursor: grab;
 }
 
 .index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
@@ -8061,6 +8062,15 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 .index-services-section .index-services-scroll-wrapper::-webkit-scrollbar-thumb {
   background: var(--accent);
   border-radius: 2px;
+}
+
+.index-services-section .index-services-scroll-wrapper.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.index-services-section .index-services-scroll-wrapper.is-dragging * {
+  pointer-events: none;
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
