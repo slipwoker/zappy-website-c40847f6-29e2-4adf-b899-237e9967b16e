@@ -7892,7 +7892,6 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   overflow-y: visible;
   padding-bottom: 12px;
   direction: rtl;
-  overflow: auto;
 }
 
 .index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
@@ -8031,8 +8030,14 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 }
 }
 
+@media (max-width: 768px) {
+.index-services-section .index-services-scroll-wrapper {
+  overflow-x: auto;
+}
+
 .index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
   display: none;
+}
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
