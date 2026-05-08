@@ -7894,7 +7894,6 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   overflow-y: hidden;
   padding-bottom: 12px;
   direction: rtl;
-  cursor: grab;
 }
 
 .index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
@@ -7917,7 +7916,6 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   gap: 20px;
   width: max-content;
   direction: rtl;
-  padding-bottom: 4px;
 }
 
 .index-services-section .index-services-card {
@@ -8045,32 +8043,11 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 }
 
 .index-services-section .index-services-scroll-wrapper {
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
   scroll-behavior: smooth;
 }
 
-.index-services-section .index-services-scroll-wrapper::-webkit-scrollbar {
-  height: 4px;
-}
-
-.index-services-section .index-services-scroll-wrapper::-webkit-scrollbar-track {
-  background: var(--border-light);
-  border-radius: 2px;
-}
-
-.index-services-section .index-services-scroll-wrapper::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 2px;
-}
-
-.index-services-section .index-services-scroll-wrapper.is-dragging {
-  cursor: grabbing;
-  user-select: none;
-}
-
-.index-services-section .index-services-scroll-wrapper.is-dragging * {
-  pointer-events: none;
+.index-services-section .index-services-scroll-wrapper:hover {
+  cursor: grab;
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
