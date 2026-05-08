@@ -8049,6 +8049,62 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 .index-services-section .index-services-scroll-wrapper:hover {
   cursor: grab;
 }
+
+.index-services-section .index-services-card > .index-services-card-img {
+  height: 220px !important;
+  width: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.3s !important;
+}
+
+.index-services-section .index-services-card:hover > .index-services-card-img {
+  transform: scale(1.04) !important;
+}
+
+.index-services-section .index-services-card > br {
+  display: none !important;
+}
+
+.index-services-section .index-services-card > .index-services-card-title {
+  padding: 16px 18px 0 18px !important;
+  margin: 0 !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  text-align: right !important;
+  flex: 1 1 auto !important;
+}
+
+.index-services-section .index-services-card > p {
+  padding: 8px 18px 16px 18px !important;
+  margin: 0 !important;
+  border-top: 1px solid var(--border-light) !important;
+}
+
+.index-services-section .index-services-card {
+  width: 240px !important;
+  min-height: unset !important;
+}
+
+@media (max-width: 768px) {
+.index-services-section .index-services-card {
+  width: 200px !important;
+}
+
+.index-services-section .index-services-card > .index-services-card-img {
+  height: 160px !important;
+}
+
+.index-services-section .index-services-card-img-wrap {
+  height: 160px !important;
+}
+
+.index-services-section .index-services-card-img-wrap img.index-services-card-img {
+  height: 160px !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
