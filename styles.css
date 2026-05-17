@@ -8256,6 +8256,12 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   object-position: 68% 30% !important;
 }
 }
+
+@media (max-width: 768px) {
+#about-team-section .zappy-inserted-element {
+  margin-bottom: 0 !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
