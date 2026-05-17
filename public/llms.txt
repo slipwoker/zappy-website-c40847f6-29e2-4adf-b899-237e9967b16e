@@ -10,10 +10,6 @@
 https://yharari-law.co.il
 נפגעתם בתאונת דרכים, רשלנות רפואית או נפילה במדרכה? הררי ושות&#39; לצידכם. ייעוץ משפטי מקצועי, תוצאות מוכחות. פנו אלינו עוד היום.
 
-### תחומי עיסוק
-https://yharari-law.co.il/practice-areas
-מרשלנות רפואית בלידה ועד עריכת חוזים לחברות — גלו כיצד אנו מגנים על זכויותיכם בכל תחום משפטי עם ניסיון, מקצועיות ומחויבות מלאה.
-
 ### אודות המשרד
 https://yharari-law.co.il/about-the-office
 הררי ושות&#39; הוא משרד עורכי דין עם מוניטין מוכח בנזקי גוף וייעוץ משפטי לעסקים. גלו מי אנחנו, מה מניע אותנו ולמה לקוחות בוחרים בנו שוב ושוב.
@@ -54,7 +50,7 @@ Information about WCAG compliance and accessibility features.
   - `name` (text, required)
   - `email` (email, required)
   - `phone` (tel, required)
-  - `message` (textarea, required)
+  - `message` (textarea)
   - `privacy_consent` (checkbox, required)
 
 ---
