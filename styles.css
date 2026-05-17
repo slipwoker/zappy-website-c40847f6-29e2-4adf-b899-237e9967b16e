@@ -8191,7 +8191,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   min-height: 733px !important;
   max-height: 733px !important;
   overflow: hidden !important;
-  margin: 0px 0px 20px !important;
+  margin: 0px !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779014471156-gzmqa9udy > div[data-zappy-zoom-wrapper] {
