@@ -8205,6 +8205,54 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   object-fit: cover !important;
   margin: 0px !important;
 }
+
+@media (max-width: 768px) {
+#about-team-section #zappy-element-1779013225183-4s0t6910e {
+  height: auto !important;
+  min-height: 0px !important;
+  max-height: none !important;
+  aspect-ratio: 4 / 5;
+}
+
+#about-team-section #zappy-element-1779013225183-4s0t6910e > div[data-zappy-zoom-wrapper] {
+  height: auto !important;
+  aspect-ratio: 4 / 5;
+  width: 100% !important;
+}
+
+#about-team-section #zappy-element-1779013225183-4s0t6910e img {
+  height: 100% !important;
+  width: 100% !important;
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  object-fit: cover !important;
+  object-position: 64% 30% !important;
+}
+
+#about-team-section #zappy-element-1779014471156-gzmqa9udy {
+  height: auto !important;
+  min-height: 0px !important;
+  max-height: none !important;
+  aspect-ratio: 4 / 5;
+}
+
+#about-team-section #zappy-element-1779014471156-gzmqa9udy > div[data-zappy-zoom-wrapper] {
+  height: auto !important;
+  aspect-ratio: 4 / 5;
+  width: 100% !important;
+}
+
+#about-team-section #zappy-element-1779014471156-gzmqa9udy img {
+  height: 100% !important;
+  width: 100% !important;
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  object-fit: cover !important;
+  object-position: 68% 30% !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
