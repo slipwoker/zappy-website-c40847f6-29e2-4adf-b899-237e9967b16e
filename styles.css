@@ -4928,20 +4928,22 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   z-index: 1;
 }
 
-/* ── Two-column grid ── */
 .about-story-section .about-story-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 80px;
   align-items: center;
   direction: rtl;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* ── Content Column ── */
 .about-story-section .about-story-content {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
+  text-align: center;
 }
 
 /* Eyebrow */
@@ -4980,13 +4982,13 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   letter-spacing: -0.01em;
 }
 
-/* Gold rule separator */
 .about-story-section .about-story-gold-rule {
   width: 48px;
   height: 2px;
   background: linear-gradient(90deg, var(--accent) 0%, rgba(198,164,108,0.3) 100%);
   border-radius: 1px;
   margin-block: 4px;
+  margin-inline: auto;
 }
 
 /* Lead paragraph */
