@@ -5686,7 +5686,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 .about-credentials-section .about-credentials-grid {
   display: grid;
   grid-template-columns: 1fr 1px 1fr 1px 1fr;
-  gap: 0 48px;
+  gap: 0 32px;
   align-items: start;
   margin-bottom: 64px;
   direction: rtl;
