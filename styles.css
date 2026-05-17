@@ -8179,6 +8179,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e > div[data-zappy-zoom-wrapper] {
   height: 733px !important;
   aspect-ratio: unset !important;
+  width: 100% !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e img {
