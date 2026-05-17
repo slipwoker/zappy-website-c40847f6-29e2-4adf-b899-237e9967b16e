@@ -8167,40 +8167,40 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e {
-  height: 420px !important;
-  min-height: 420px !important;
-  max-height: 420px !important;
+  height: 733px !important;
+  min-height: 733px !important;
+  max-height: 733px !important;
   overflow: hidden !important;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e > div[data-zappy-zoom-wrapper] {
-  height: 420px !important;
+  height: 733px !important;
   aspect-ratio: unset !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e img {
-  height: 420px !important;
+  height: 733px !important;
   width: 100% !important;
   object-fit: cover !important;
-  margin: 0px !important;
+  margin: 0 !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779014471156-gzmqa9udy {
-  height: 420px !important;
-  min-height: 420px !important;
-  max-height: 420px !important;
+  height: 733px !important;
+  min-height: 733px !important;
+  max-height: 733px !important;
   overflow: hidden !important;
-  margin: 0px !important;
+  margin: 0px 0px 20px !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779014471156-gzmqa9udy > div[data-zappy-zoom-wrapper] {
-  height: 420px !important;
+  height: 733px !important;
   width: 100% !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779014471156-gzmqa9udy img {
-  height: 420px !important;
+  height: 733px !important;
   width: 100% !important;
   object-fit: cover !important;
   margin: 0px !important;
@@ -8211,48 +8211,46 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   height: auto !important;
   min-height: 0px !important;
   max-height: none !important;
-  aspect-ratio: 3 / 2;
-  margin: 0px !important;
+  aspect-ratio: 4 / 5;
 }
 
 #about-team-section #zappy-element-1779013225183-4s0t6910e > div[data-zappy-zoom-wrapper] {
   height: auto !important;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 5;
   width: 100% !important;
 }
 
 #about-team-section #zappy-element-1779013225183-4s0t6910e img {
-  height: 120% !important;
-  width: 128.197% !important;
+  height: 100% !important;
+  width: 100% !important;
   position: relative !important;
   left: 0 !important;
   top: 0 !important;
   object-fit: cover !important;
-  object-position: 47% 60% !important;
+  object-position: 64% 30% !important;
 }
 
 #about-team-section #zappy-element-1779014471156-gzmqa9udy {
   height: auto !important;
   min-height: 0px !important;
   max-height: none !important;
-  aspect-ratio: 3 / 2;
-  margin: 0px !important;
+  aspect-ratio: 4 / 5;
 }
 
 #about-team-section #zappy-element-1779014471156-gzmqa9udy > div[data-zappy-zoom-wrapper] {
   height: auto !important;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 5;
   width: 100% !important;
 }
 
 #about-team-section #zappy-element-1779014471156-gzmqa9udy img {
-  height: 134.857% !important;
-  width: 130% !important;
+  height: 100% !important;
+  width: 100% !important;
   position: relative !important;
   left: 0 !important;
   top: 0 !important;
   object-fit: cover !important;
-  object-position: 68% 57% !important;
+  object-position: 68% 30% !important;
 }
 }
 /* mobile-submenu-overflow-fix */
