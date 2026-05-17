@@ -8167,23 +8167,25 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e {
-  height: 733px !important;
-  min-height: 733px !important;
-  max-height: 733px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
   overflow: hidden !important;
   margin: 0 !important;
+  aspect-ratio: 4 / 5;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e > div[data-zappy-zoom-wrapper] {
-  height: 733px !important;
-  aspect-ratio: unset !important;
+  height: auto !important;
+  aspect-ratio: 4 / 5;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779013225183-4s0t6910e img {
-  height: 733px !important;
+  height: 100% !important;
   width: 100% !important;
   object-fit: cover !important;
   margin: 0 !important;
+  max-height: none !important;
 }
 
 #about-team-section div.zappy-inserted-element#zappy-element-1779014471156-gzmqa9udy {
