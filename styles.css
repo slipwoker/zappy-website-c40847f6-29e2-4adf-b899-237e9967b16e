@@ -5683,10 +5683,11 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   text-align: center;
 }
 
+/* ── Two-Column Grid ─────────────────────────────────────────────────── */
 .about-credentials-section .about-credentials-grid {
   display: grid;
-  grid-template-columns: 1fr 1px 1fr 1px 1fr;
-  gap: 0 32px;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 48px;
   align-items: start;
   margin-bottom: 64px;
   direction: rtl;
@@ -8164,10 +8165,6 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   }
 }
 
-
-.about-credentials-section #zappy-auto-grid-1779005730109-6c92lh {
-  grid-template-columns: 1fr 1px 1fr 1px 1fr !important;
-}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
