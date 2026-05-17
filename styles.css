@@ -7932,6 +7932,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   color: var(--text-dark);
   box-shadow: var(--shadow-card);
   transition: transform 0.22s ease, box-shadow 0.22s ease;
+  cursor: default;
 }
 
 .index-services-section .index-services-card:hover {
