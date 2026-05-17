@@ -1,0 +1,2990 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>נזיקין</title>
+    <meta name="description" content="הררי ושות' - משרד עורכי-דין - נזיקין">
+    <meta name="keywords" content="">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'c40847f6-29e2-4adf-b899-237e9967b16e',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="נזיקין">
+    <meta property="og:description" content="הררי ושות' - משרד עורכי-דין - נזיקין">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="נזיקין">
+    <meta name="twitter:description" content="הררי ושות' - משרד עורכי-דין - נזיקין">
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://yharari-law.co.il#organization","name":"הררי ושות' - משרד עורכי-דין","url":"https://yharari-law.co.il","description":"Harari & Co. is a law firm specializing in two core practice areas: personal injury law (including traffic accident claims and medical malpractice) and corporate legal services (including ongoing legal counsel and contract drafting). The firm positions itself as a professional and trustworthy legal partner for both individuals seeking compensation and businesses requiring ongoing legal support.","address":{"@type":"PostalAddress","streetAddress":"כרמיאל"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer service","email":"office@yharari-law.co.il","telephone":"074-7642466"}]},{"@type":"WebSite","@id":"https://yharari-law.co.il#website","url":"https://yharari-law.co.il","name":"הררי ושות' - משרד עורכי-דין","publisher":{"@id":"https://yharari-law.co.il#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yharari-law.co.il"},{"@type":"ListItem","position":2,"name":"Nezikin","item":"https://yharari-law.co.il/nezikin"}]}]}</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+
+
+
+<style data-zappy-section-v2-css="true">
+/* V2 Regenerated Section CSS */
+.index-hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
+  background-color: #183153;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  padding-bottom: 80px;
+  direction: rtl;
+}
+
+/* Background image layer */
+.index-hero-section .index-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.index-hero-section .index-hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0;
+}
+
+/* Scrim overlay */
+.index-hero-section .index-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: #183153;
+  background-image:
+    linear-gradient(to top,
+      rgba(24, 49, 83, 0.92) 0%,
+      rgba(24, 49, 83, 0.78) 40%,
+      rgba(24, 49, 83, 0.50) 70%,
+      rgba(24, 49, 83, 0.30) 100%
+    );
+}
+
+/* Skyline decorative motif */
+.index-hero-section .index-hero-skyline-motif {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  z-index: 2;
+  pointer-events: none;
+  background-image: linear-gradient(to top, rgba(24,49,83,0.62) 0%, transparent 100%);
+}
+
+/* Container */
+.index-hero-section .index-hero-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 160px 48px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Content block */
+.index-hero-section .index-hero-content {
+  max-width: 700px;
+  text-align: right;
+}
+
+/* Firm label */
+.index-hero-section .index-hero-label {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: inline-block;
+  text-align: right;
+}
+
+/* Gold accent line */
+.index-hero-section .index-hero-accent-line {
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, #C6A46C 0%, #e8d5a3 60%, #C6A46C 100%);
+  margin-bottom: 24px;
+  margin-inline-start: 0;
+  border-radius: 2px;
+}
+
+/* H1 */
+.index-hero-section .index-hero-h1 {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-light);
+  margin: 0 0 12px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+  text-align: right;
+}
+
+.index-hero-section .index-hero-h1-accent {
+  color: var(--accent);
+  display: inline;
+}
+
+/* H3 subtitle */
+.index-hero-section .index-hero-h3 {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: rgba(250, 249, 247, 0.88);
+  margin: 0 0 36px;
+  max-width: 620px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+  text-align: right;
+}
+
+/* CTA group */
+.index-hero-section .index-hero-ctas {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+/* Primary button */
+.index-hero-section .index-hero-btn-primary {
+  display: inline-block;
+  background: var(--accent);
+  color: #183153;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 14px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 12px 40px rgba(198, 164, 108, 0.30);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.index-hero-section .index-hero-btn-primary:hover {
+  background: #e8d5a3;
+  color: #183153;
+  transform: translateY(-3px);
+  box-shadow: 0 18px 48px rgba(198, 164, 108, 0.45);
+}
+
+/* Secondary button */
+.index-hero-section .index-hero-btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--text-light);
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 13px 28px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(198, 164, 108, 0.70);
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.index-hero-section .index-hero-btn-secondary:hover {
+  background: rgba(198, 164, 108, 0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* Bottom divider wrapper */
+.index-hero-section .index-hero-divider-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.index-hero-section .index-hero-divider-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .index-hero-section {
+    min-height: 100svh;
+    align-items: flex-end;
+    padding-bottom: 80px;
+  }
+
+  .index-hero-section .index-hero-container {
+    padding: 100px 20px 48px;
+    align-items: flex-start;
+  }
+
+  .index-hero-section .index-hero-content {
+    max-width: 100%;
+  }
+
+  .index-hero-section .index-hero-h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+  }
+
+  .index-hero-section .index-hero-h3 {
+    font-size: 0.97rem;
+    max-width: 100%;
+    margin-bottom: 28px;
+  }
+
+  .index-hero-section .index-hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .index-hero-section .index-hero-btn-primary,
+  .index-hero-section .index-hero-btn-secondary {
+    text-align: center;
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  .index-hero-section .index-hero-skyline-motif {
+    height: 140px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .index-hero-section .index-hero-container {
+    padding: 140px 32px 60px;
+  }
+
+  .index-hero-section .index-hero-h1 {
+    font-size: 2.5rem;
+  }
+}
+</style>
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:url" content="https://yharari-law.co.il/nezikin">
+    <meta property="og:type" content="article">
+    
+    
+    
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="נזיקין">
+    <meta property="og:locale" content="he_IL">
+    <!-- Twitter Card Meta Tags -->
+    
+    
+    
+    
+    <meta name="twitter:image:alt" content="נזיקין"><style id="zappy-ai-page-styles">@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+.nezikin-hero-section {
+  position: relative;
+  overflow: visible;
+  background-color: #FFFFFF;
+  background-image: linear-gradient(180deg, #FFFFFF 0%, #F5F3EF 100%);
+  color: var(--text-dark);
+  direction: rtl;
+  padding: 140px 24px 80px;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+}
+
+/* Container */
+.nezikin-hero-section .nezikin-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 56px;
+  align-items: center;
+  direction: rtl;
+}
+
+/* ── RIGHT COLUMN: CONTENT ── */
+.nezikin-hero-section .nezikin-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  position: relative;
+  z-index: 10;
+}
+
+/* Label */
+.nezikin-hero-section .nezikin-hero-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 18px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* H1 */
+.nezikin-hero-section .nezikin-hero-h1 {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
+  margin: 0 0 24px 0;
+  text-align: right;
+}
+
+/* Subtitle H3 */
+.nezikin-hero-section .nezikin-hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #4B5563;
+  margin: 0 0 36px 0;
+  text-align: right;
+  max-width: 520px;
+}
+
+/* CTA Row */
+.nezikin-hero-section .nezikin-hero-cta-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.nezikin-hero-section .nezikin-btn-primary {
+  display: inline-block;
+  background: #1B2B4B;
+  color: #FAF9F7;
+  padding: 14px 28px;
+  border-radius: 4px;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 24px rgba(27,43,75,0.15);
+  white-space: nowrap;
+}
+
+.nezikin-hero-section .nezikin-btn-primary:hover {
+  background: #2C3E6B;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(27,43,75,0.22);
+}
+
+.nezikin-hero-section .nezikin-btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--text-dark);
+  padding: 14px 28px;
+  border-radius: 4px;
+  border: 1.5px solid #C9A84C;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.nezikin-hero-section .nezikin-btn-secondary:hover {
+  background: #C9A84C;
+  color: #1B2B4B;
+}
+
+/* Trust Row */
+.nezikin-hero-section .nezikin-trust-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.nezikin-hero-section .nezikin-trust-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+
+.nezikin-hero-section .nezikin-trust-item:first-child {
+  padding-inline-end: 20px;
+  padding-inline-start: 0;
+}
+
+.nezikin-hero-section .nezikin-trust-item:last-child {
+  padding-inline-start: 20px;
+  padding-inline-end: 0;
+}
+
+.nezikin-hero-section .nezikin-trust-icon {
+  display: flex;
+  align-items: center;
+  color: #C9A84C;
+  flex-shrink: 0;
+}
+
+.nezikin-hero-section .nezikin-trust-sep {
+  width: 1px;
+  height: 28px;
+  background: #C9A84C;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ── LEFT COLUMN: VISUAL ── */
+.nezikin-hero-section .nezikin-hero-visual {
+  position: relative;
+  z-index: 5;
+}
+
+.nezikin-hero-section .nezikin-hero-img-frame {
+  position: relative;
+  border-radius: 8px;
+  overflow: visible;
+}
+
+.nezikin-hero-section .nezikin-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 24px 64px rgba(27,43,75,0.14);
+  position: relative;
+  z-index: 2;
+}
+
+/* Gold border accent (offset frame) */
+.nezikin-hero-section .nezikin-img-border-accent {
+  position: absolute;
+  inset-inline-end: -14px;
+  bottom: -14px;
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  border: 1.5px solid rgba(201,168,76,0.45);
+  border-radius: 6px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Glass Card */
+.nezikin-hero-section .nezikin-glass-card {
+  position: absolute;
+  inset-inline-start: -28px;
+  bottom: 36px;
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 6px;
+  padding: 18px 22px;
+  box-shadow: 0 12px 40px rgba(27,43,75,0.12);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 170px;
+}
+
+.nezikin-hero-section .nezikin-glass-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1B2B4B;
+  white-space: nowrap;
+}
+
+.nezikin-hero-section .nezikin-glass-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #C9A84C;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.nezikin-hero-section .nezikin-glass-divider {
+  height: 1px;
+  background: rgba(201,168,76,0.25);
+  width: 100%;
+}
+
+/* ── BOTTOM DIVIDER ── */
+.nezikin-hero-section .nezikin-hero-divider-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.nezikin-hero-section .nezikin-hero-divider-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── RESPONSIVE: TABLET ── */
+@media (max-width: 1024px) {
+  .nezikin-hero-section .nezikin-hero-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .nezikin-hero-section .nezikin-hero-h1 {
+    font-size: 2.4rem;
+  }
+
+  .nezikin-hero-section .nezikin-glass-card {
+    inset-inline-start: -12px;
+    bottom: 24px;
+  }
+}
+
+/* ── RESPONSIVE: MOBILE ── */
+@media (max-width: 768px) {
+  .nezikin-hero-section {
+    padding: 100px 16px 72px;
+  }
+
+  .nezikin-hero-section .nezikin-hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .nezikin-hero-section .nezikin-hero-content {
+    order: 1;
+  }
+
+  .nezikin-hero-section .nezikin-hero-visual {
+    order: 2;
+  }
+
+  .nezikin-hero-section .nezikin-hero-h1 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+
+  .nezikin-hero-section .nezikin-hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 28px;
+    max-width: 100%;
+  }
+
+  .nezikin-hero-section .nezikin-hero-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .nezikin-hero-section .nezikin-btn-primary,
+  .nezikin-hero-section .nezikin-btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nezikin-hero-section .nezikin-trust-row {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .nezikin-hero-section .nezikin-trust-item {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+
+  .nezikin-hero-section .nezikin-trust-item:first-child {
+    padding-inline-start: 0;
+  }
+
+  .nezikin-hero-section .nezikin-trust-sep {
+    height: 20px;
+  }
+
+  .nezikin-hero-section .nezikin-glass-card {
+    position: static;
+    margin-top: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 14px 16px;
+  }
+
+  .nezikin-hero-section .nezikin-glass-divider {
+    display: none;
+  }
+
+  .nezikin-hero-section .nezikin-glass-item {
+    padding: 6px 8px;
+  }
+
+  .nezikin-hero-section .nezikin-img-border-accent {
+    display: none;
+  }
+}
+/* ZAPPY_POSTGEN_GUARD_HERO_FONT_CAP:nezikin-hero */
+.hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: min(var(--display-xl, 6rem), 6rem) !important; line-height: var(--leading-display, 1.05); }
+@media (max-width: 768px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: clamp(2rem, 9vw, 3rem) !important; }
+}
+
+
+.nezikin-services-section {
+  background: #FFFFFF;
+  color: var(--text-dark);
+  padding: 90px 0 72px;
+  position: relative;
+  direction: rtl;
+}
+
+.nezikin-services-section .nezikin-services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── Section Header ── */
+.nezikin-services-section .nezikin-services-header {
+  text-align: right;
+  margin-bottom: 52px;
+  max-width: 680px;
+}
+
+.nezikin-services-section .nezikin-services-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-dark);
+  margin: 0 0 16px;
+  letter-spacing: 0;
+}
+
+.nezikin-services-section .nezikin-services-divider {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.nezikin-services-section .nezikin-services-subtitle {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: right;
+}
+
+/* ── Services Grid ── */
+.nezikin-services-section .nezikin-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 28px;
+  direction: rtl;
+}
+
+/* Row 2: 2 cards centered — span trick */
+.nezikin-services-section .nezikin-card-row2:first-of-type {
+  grid-column: 1;
+}
+
+/* Center the 2 bottom cards */
+.nezikin-services-section .nezikin-services-grid {
+  grid-template-areas:
+    'c1 c2 c3'
+    '. c4 c5';
+}
+
+.nezikin-services-section .nezikin-services-grid .nezikin-service-card:nth-child(1) { grid-area: c1; }
+.nezikin-services-section .nezikin-services-grid .nezikin-service-card:nth-child(2) { grid-area: c2; }
+.nezikin-services-section .nezikin-services-grid .nezikin-service-card:nth-child(3) { grid-area: c3; }
+.nezikin-services-section .nezikin-services-grid .nezikin-service-card:nth-child(4) { grid-area: c4; }
+.nezikin-services-section .nezikin-services-grid .nezikin-service-card:nth-child(5) { grid-area: c5; }
+
+/* ── Service Card ── */
+.nezikin-services-section .nezikin-service-card {
+  background: #FAFAF8;
+  border: 1px solid rgba(24, 49, 83, 0.13);
+  border-radius: 4px;
+  padding: 32px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  transition: box-shadow 0.22s ease, border-color 0.22s ease;
+  text-align: right;
+  min-width: 0;
+}
+
+.nezikin-services-section .nezikin-service-card:hover {
+  box-shadow: 0 6px 30px rgba(27, 43, 75, 0.08);
+  border-color: rgba(198, 164, 108, 0.45);
+}
+
+/* ── Card Icon ── */
+.nezikin-services-section .nezikin-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.nezikin-services-section .nezikin-card-icon svg {
+  display: block;
+}
+
+/* ── Card Title ── */
+.nezikin-services-section .nezikin-card-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 12px;
+  text-align: right;
+}
+
+/* ── Card Description ── */
+.nezikin-services-section .nezikin-card-desc {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+  text-align: right;
+  flex-grow: 1;
+}
+
+/* ── Card Link ── */
+.nezikin-services-section .nezikin-card-link {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(198, 164, 108, 0.4);
+  padding-bottom: 2px;
+  transition: color 0.18s ease, border-color 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  direction: rtl;
+  margin-top: auto;
+}
+
+.nezikin-services-section .nezikin-card-link:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ── Footer Note ── */
+.nezikin-services-section .nezikin-services-footer-note {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-light);
+  text-align: right;
+}
+
+.nezikin-services-section .nezikin-services-footer-note p {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: right;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .nezikin-services-section .nezikin-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      'c1 c2'
+      'c3 c4'
+      '. c5';
+  }
+}
+
+@media (max-width: 768px) {
+  .nezikin-services-section {
+    padding: 60px 0 52px;
+  }
+
+  .nezikin-services-section .nezikin-services-container {
+    padding: 0 16px;
+  }
+
+  .nezikin-services-section .nezikin-services-header {
+    margin-bottom: 36px;
+    max-width: 100%;
+  }
+
+  .nezikin-services-section .nezikin-services-title {
+    font-size: 1.65rem;
+  }
+
+  .nezikin-services-section .nezikin-services-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      'c1'
+      'c2'
+      'c3'
+      'c4'
+      'c5' !important;
+    gap: 20px;
+  }
+
+  .nezikin-services-section .nezikin-service-card {
+    padding: 24px 20px 20px;
+  }
+
+  .nezikin-services-section .nezikin-services-footer-note {
+    margin-top: 32px;
+    padding-top: 20px;
+  }
+}
+
+.nezikin-benefits-section {
+  background: #FFFFFF;
+  color: var(--text-dark);
+  padding: 80px 24px 100px;
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+}
+
+.nezikin-benefits-section .nezikin-benefits-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ── Header Block ── */
+.nezikin-benefits-section .nezikin-benefits-header {
+  max-width: 640px;
+  margin-block-end: 56px;
+  text-align: right;
+}
+
+.nezikin-benefits-section .nezikin-benefits-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-dark);
+  margin: 0 0 16px;
+  letter-spacing: 0;
+}
+
+.nezikin-benefits-section .nezikin-benefits-intro {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── 3-Column Benefits Grid ── */
+.nezikin-benefits-section .nezikin-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-block-end: 56px;
+  direction: rtl;
+}
+
+.nezikin-benefits-section .nezikin-benefit-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+}
+
+.nezikin-benefits-section .nezikin-benefit-card:hover {
+  box-shadow: 0 12px 48px rgba(27, 43, 75, 0.12);
+  transform: translateY(-3px);
+}
+
+.nezikin-benefits-section .nezikin-benefit-card-top-bar {
+  height: 3px;
+  background: var(--secondary);
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.nezikin-benefits-section .nezikin-benefit-card-body {
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.nezikin-benefits-section .nezikin-benefit-icon-wrap {
+  width: 52px;
+  height: 52px;
+  background: #F5F3EF;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary);
+  margin-block-end: 20px;
+  flex-shrink: 0;
+}
+
+.nezikin-benefits-section .nezikin-benefit-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 12px;
+  text-align: right;
+}
+
+.nezikin-benefits-section .nezikin-benefit-desc {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: right;
+}
+
+/* ── Two-Column Lower Block ── */
+.nezikin-benefits-section .nezikin-benefits-lower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  direction: rtl;
+  align-items: start;
+}
+
+/* ── Right Column: Explanation ── */
+.nezikin-benefits-section .nezikin-benefits-explanation {
+  text-align: right;
+}
+
+.nezikin-benefits-section .nezikin-diamond-sep {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  margin-block-end: 20px;
+  margin-inline-end: 0;
+}
+
+.nezikin-benefits-section .nezikin-explanation-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 20px;
+  text-align: right;
+}
+
+.nezikin-benefits-section .nezikin-benefits-explanation p {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  text-align: right;
+}
+
+.nezikin-benefits-section .nezikin-benefits-explanation p:last-child {
+  margin-block-end: 0;
+}
+
+/* ── Left Column: Checklist ── */
+.nezikin-benefits-section .nezikin-benefits-checklist {
+  background: #FAFAF8;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 32px;
+}
+
+.nezikin-benefits-section .nezikin-checklist-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 28px;
+  text-align: right;
+}
+
+.nezikin-benefits-section .nezikin-checklist-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nezikin-benefits-section .nezikin-checklist-item {
+  border-block-end: 1px solid var(--border-light);
+  padding-block: 20px;
+}
+
+.nezikin-benefits-section .nezikin-checklist-item:first-child {
+  padding-block-start: 0;
+}
+
+.nezikin-benefits-section .nezikin-checklist-item:last-child {
+  border-block-end: none;
+  padding-block-end: 0;
+}
+
+.nezikin-benefits-section .nezikin-checklist-item-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  direction: rtl;
+}
+
+.nezikin-benefits-section .nezikin-checklist-num {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.3;
+  flex-shrink: 0;
+  min-width: 28px;
+  text-align: right;
+}
+
+.nezikin-benefits-section .nezikin-checklist-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+  flex: 1;
+}
+
+.nezikin-benefits-section .nezikin-checklist-text strong {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+.nezikin-benefits-section .nezikin-checklist-text span {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ── Responsive: Tablet ── */
+@media (max-width: 1024px) {
+  .nezikin-benefits-section .nezikin-benefits-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .nezikin-benefits-section .nezikin-benefits-lower {
+    gap: 32px;
+  }
+}
+
+/* ── Responsive: Mobile ── */
+@media (max-width: 768px) {
+  .nezikin-benefits-section {
+    padding: 60px 16px 72px;
+  }
+
+  .nezikin-benefits-section .nezikin-benefits-header {
+    max-width: 100%;
+    margin-block-end: 36px;
+  }
+
+  .nezikin-benefits-section .nezikin-benefits-title {
+    font-size: 1.6rem;
+  }
+
+  .nezikin-benefits-section .nezikin-benefits-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    margin-block-end: 36px;
+  }
+
+  .nezikin-benefits-section .nezikin-benefit-card-body {
+    padding: 20px 20px 24px;
+  }
+
+  .nezikin-benefits-section .nezikin-benefits-lower {
+    grid-template-columns: 1fr !important;
+    gap: 28px;
+  }
+
+  .nezikin-benefits-section .nezikin-benefits-checklist {
+    padding: 24px 20px;
+  }
+
+  .nezikin-benefits-section .nezikin-checklist-item {
+    padding-block: 16px;
+  }
+}
+
+.nezikin-case-studies-section {
+  background-color: #1B2B4B;
+  background-image:
+    radial-gradient(ellipse at 10% 20%, rgba(198,164,108,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 80%, rgba(47,107,95,0.08) 0%, transparent 55%),
+    linear-gradient(160deg, #1E3155 0%, #183153 60%, #142840 100%);
+  color: var(--text-light);
+  padding: 96px 24px 80px;
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+}
+
+.nezikin-case-studies-section .ncs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header ── */
+.nezikin-case-studies-section .ncs-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.nezikin-case-studies-section .ncs-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-light);
+  margin: 0 0 18px 0;
+  letter-spacing: 0.01em;
+}
+
+.nezikin-case-studies-section .ncs-accent-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.nezikin-case-studies-section .ncs-accent-line::before,
+.nezikin-case-studies-section .ncs-accent-line::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 64px;
+  background: rgba(198,164,108,0.45);
+}
+
+.nezikin-case-studies-section .ncs-subtitle {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(250,249,247,0.75);
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ── Grid ── */
+.nezikin-case-studies-section .ncs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  direction: rtl;
+}
+
+@media (min-width: 768px) {
+  .nezikin-case-studies-section .ncs-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+}
+
+/* ── Panel ── */
+.nezikin-case-studies-section .ncs-panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(198,164,108,0.18);
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 6px 30px rgba(27,43,75,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nezikin-case-studies-section .ncs-panel::before {
+  content: '';
+  position: absolute;
+  inset-inline-end: -20px;
+  top: -20px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(198,164,108,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.nezikin-case-studies-section .ncs-panel:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(198,164,108,0.38);
+  box-shadow: 0 12px 48px rgba(27,43,75,0.35);
+}
+
+/* ── Panel Icon ── */
+.nezikin-case-studies-section .ncs-panel-icon {
+  color: var(--accent);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ── Panel Body ── */
+.nezikin-case-studies-section .ncs-panel-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.nezikin-case-studies-section .ncs-panel-title {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-light);
+  margin: 0 0 14px 0;
+  text-align: right;
+}
+
+.nezikin-case-studies-section .ncs-panel-desc {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(250,249,247,0.72);
+  margin: 0 0 24px 0;
+  flex: 1;
+  text-align: right;
+}
+
+/* ── Panel Footer ── */
+.nezikin-case-studies-section .ncs-panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(198,164,108,0.15);
+  margin-top: auto;
+}
+
+.nezikin-case-studies-section .ncs-footer-label {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-align: right;
+}
+
+.nezikin-case-studies-section .ncs-panel-footer svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.nezikin-case-studies-section .ncs-panel:hover .ncs-panel-footer svg {
+  transform: translateX(-3px);
+}
+
+/* ── Summary ── */
+.nezikin-case-studies-section .ncs-summary {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.nezikin-case-studies-section .ncs-summary-inner {
+  max-width: 620px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 40px;
+  border-top: 1px solid rgba(198,164,108,0.2);
+  border-bottom: 1px solid rgba(198,164,108,0.2);
+}
+
+.nezikin-case-studies-section .ncs-summary-diamond {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nezikin-case-studies-section .ncs-summary-text {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: rgba(250,249,247,0.82);
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+/* ── Mobile Overrides ── */
+@media (max-width: 767px) {
+  .nezikin-case-studies-section {
+    padding: 64px 16px 60px;
+  }
+
+  .nezikin-case-studies-section .ncs-header {
+    margin-bottom: 36px;
+  }
+
+  .nezikin-case-studies-section .ncs-title {
+    font-size: 1.75rem;
+  }
+
+  .nezikin-case-studies-section .ncs-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .nezikin-case-studies-section .ncs-panel {
+    padding: 1.5rem;
+  }
+
+  .nezikin-case-studies-section .ncs-summary-inner {
+    padding: 24px 20px;
+  }
+
+  .nezikin-case-studies-section .ncs-summary {
+    margin-top: 40px;
+  }
+
+  .nezikin-case-studies-section .ncs-accent-line::before,
+  .nezikin-case-studies-section .ncs-accent-line::after {
+    width: 40px;
+  }
+}
+
+.nezikin-cta-section {
+  background: #FFFFFF;
+  color: var(--text-dark);
+  padding: 80px 24px 100px;
+  position: relative;
+  direction: rtl;
+}
+
+.nezikin-cta-section .nezikin-cta-container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.nezikin-cta-section .nezikin-cta-card {
+  background: var(--bg-light);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 48px 48px 48px 48px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 30px rgba(27, 43, 75, 0.08);
+}
+
+.nezikin-cta-section .nezikin-cta-accent-bar {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 48px;
+  width: 56px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 0 0 2px 2px;
+}
+
+.nezikin-cta-section .nezikin-cta-quote-decor {
+  position: absolute;
+  top: 12px;
+  inset-inline-start: 32px;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+.nezikin-cta-section .nezikin-cta-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+  position: relative;
+  z-index: 1;
+}
+
+.nezikin-cta-section .nezikin-cta-content {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: right;
+}
+
+.nezikin-cta-section .nezikin-cta-heading {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin: 0 0 16px 0;
+}
+
+.nezikin-cta-section .nezikin-cta-body {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  margin: 0 0 16px 0;
+}
+
+.nezikin-cta-section .nezikin-cta-note {
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.nezikin-cta-section .nezikin-cta-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  min-width: 200px;
+}
+
+.nezikin-cta-section .nezikin-btn-primary {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--text-light);
+  padding: 14px 28px;
+  border-radius: 4px;
+  border: none;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.nezikin-cta-section .nezikin-btn-primary:hover {
+  background: #1e3d69;
+  box-shadow: 0 4px 16px rgba(24, 49, 83, 0.18);
+}
+
+.nezikin-cta-section .nezikin-btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--text-dark);
+  padding: 13px 28px;
+  border-radius: 4px;
+  border: 1.5px solid var(--accent);
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.nezikin-cta-section .nezikin-btn-secondary:hover {
+  background: var(--accent);
+  color: var(--bg-dark);
+}
+
+@media (max-width: 768px) {
+  .nezikin-cta-section {
+    padding: 48px 16px 64px;
+  }
+
+  .nezikin-cta-section .nezikin-cta-card {
+    padding: 36px 24px 36px;
+  }
+
+  .nezikin-cta-section .nezikin-cta-accent-bar {
+    inset-inline-end: 24px;
+  }
+
+  .nezikin-cta-section .nezikin-cta-inner {
+    flex-direction: column;
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .nezikin-cta-section .nezikin-cta-content {
+    text-align: right;
+  }
+
+  .nezikin-cta-section .nezikin-cta-heading {
+    font-size: 1.6rem;
+  }
+
+  .nezikin-cta-section .nezikin-cta-actions {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .nezikin-cta-section .nezikin-btn-primary,
+  .nezikin-cta-section .nezikin-btn-secondary {
+    width: 100%;
+  }
+
+  .nezikin-cta-section .nezikin-cta-quote-decor {
+    display: none;
+  }
+}</style>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+        #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+          display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+        #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+          display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+        }
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="0747642466" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/logo.webp" alt="הררי ושות' - משרד עורכי-דין" class="logo">
+      </a>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/about-the-office">אודות המשרד</a></li><li><a href="/nezikin" class="nav-link">נזיקין</a></li></ul></div>
+
+    
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '50%', 'important');
+          mobileToggle.style.setProperty('transform', 'translateY(-50%)', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '50%', 'important');
+          phoneBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu on button click - use newToggle now
+    newToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = this.querySelector('.hamburger-icon');
+      const closeIcon = this.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    });
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '074-7642466';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // === WHATSAPP BUTTON VISIBILITY FIX ===
+    // Ensure WhatsApp floating button is hidden on desktop and visible on mobile
+    // IMPORTANT: Only target the floating button by its class, NOT generic wa.me links
+    const handleWhatsAppVisibility = function() {
+      const whatsappBtn = document.querySelector('.whatsapp-float');
+      if (whatsappBtn) {
+        const isDesktop = window.innerWidth >= 769;
+        if (isDesktop) {
+          whatsappBtn.style.setProperty('display', 'none', 'important');
+          whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
+          whatsappBtn.style.setProperty('opacity', '0', 'important');
+          whatsappBtn.style.setProperty('pointer-events', 'none', 'important');
+          console.log('[WhatsApp] Button hidden on desktop');
+        } else {
+          whatsappBtn.style.removeProperty('display');
+          whatsappBtn.style.removeProperty('visibility');
+          whatsappBtn.style.removeProperty('opacity');
+          whatsappBtn.style.removeProperty('pointer-events');
+          console.log('[WhatsApp] Button visible on mobile');
+        }
+      }
+    };
+    
+    // Run on load
+    handleWhatsAppVisibility();
+    
+    // Run on resize with debouncing
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleWhatsAppVisibility, 100);
+    });
+  });
+})();
+
+</script>
+  
+  <main class="blog-page ai-generated-page"><section class="nezikin-hero-section" data-layout-spec="נזיקין-hero" dir="rtl" data-hero-type="fullscreen-scrim">
+  <div class="nezikin-hero-container">
+
+    <!-- Right Column: Content -->
+    <div class="nezikin-hero-content">
+
+      <span class="nezikin-hero-label">תחום נזיקין ופיצויים</span>
+
+      <h1 class="nezikin-hero-h1">נלחמים על הפיצוי<br>שמגיע לך</h1>
+
+      <h3 class="nezikin-hero-subtitle">תאונות דרכים, רשלנות רפואית ותביעות נזיקין — ליווי מקצועי אישי מהבדיקה הראשונה ועד לסגירת התיק.</h3>
+
+      <div class="nezikin-hero-cta-row">
+        <a href="/contact" class="nezikin-btn-primary">לפגישת ייעוץ ראשונית</a>
+        <a href="#nezikin-practice-areas" class="nezikin-btn-secondary">תחומי ההתמחות שלנו</a>
+      </div>
+
+      <!-- Trust Points -->
+      <div class="nezikin-trust-row">
+        <div class="nezikin-trust-item">
+          <span class="nezikin-trust-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </span>
+          <span>ניסיון מוכח</span>
+        </div>
+        <div class="nezikin-trust-sep" aria-hidden="true"></div>
+        <div class="nezikin-trust-item">
+          <span class="nezikin-trust-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+          </span>
+          <span>זמינות מלאה</span>
+        </div>
+        <div class="nezikin-trust-sep" aria-hidden="true"></div>
+        <div class="nezikin-trust-item">
+          <span class="nezikin-trust-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </span>
+          <span>ליווי אישי לאורך כל הדרך</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Left Column: Visual -->
+    <div class="nezikin-hero-visual">
+      <div class="nezikin-hero-img-frame">
+        <img data-hero-bg="true" data-context="A warm, professional law office consultation scene: a polished wooden desk with legal documents, a fountain pen, and soft natural light coming through tall windows with sheer curtains. The atmosphere is calm, authoritative, and trustworthy — suitable for a personal injury law firm in Israel. No people visible, focus on the desk and legal materials." width="600" height="480" src="/assets/section-hero-nezikin-hero-image-1.webp" alt="משרד עורכי דין הררי ושות - ייעוץ משפטי בתחום נזיקין" class="nezikin-hero-img">
+        <!-- Glass card overlay -->
+        <div class="nezikin-glass-card" aria-hidden="false">
+          <div class="nezikin-glass-item">
+            <span class="nezikin-glass-dot" aria-hidden="true"></span>
+            <span>ליווי אישי</span>
+          </div>
+          <div class="nezikin-glass-divider" aria-hidden="true"></div>
+          <div class="nezikin-glass-item">
+            <span class="nezikin-glass-dot" aria-hidden="true"></span>
+            <span>בדיקת עילה ללא עלות</span>
+          </div>
+          <div class="nezikin-glass-divider" aria-hidden="true"></div>
+          <div class="nezikin-glass-item">
+            <span class="nezikin-glass-dot" aria-hidden="true"></span>
+            <span>ניהול תביעה מקצועי</span>
+          </div>
+        </div>
+        <!-- Gold border accent -->
+        <div class="nezikin-img-border-accent" aria-hidden="true"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom divider -->
+  <div class="nezikin-hero-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,48 L0,30 Q150,18 300,28 T600,22 Q800,16 1000,26 T1200,20 L1200,48 Z" fill="#FAF9F7"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="nezikin-services-section" data-layout-spec="נזיקין-services" dir="rtl">
+  <div class="nezikin-services-container">
+
+    <!-- Section Header -->
+    <div class="nezikin-services-header">
+      <h2 class="nezikin-services-title">תחומי הנזיקין שלנו</h2>
+      <div class="nezikin-services-divider" aria-hidden="true">
+        <svg width="40" height="12" viewBox="0 0 40 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-no-icon-edit="true" aria-hidden="true">
+          <rect x="0" y="5" width="14" height="1.5" fill="#C6A46C"></rect>
+          <rect x="17" y="3.5" width="6" height="6" transform="rotate(45 20 6)" fill="#C6A46C"></rect>
+          <rect x="26" y="5" width="14" height="1.5" fill="#C6A46C"></rect>
+        </svg>
+      </div>
+      <p class="nezikin-services-subtitle">אנו מתמחים במגוון תחומי נזיקין ומלווים את מרשינו לאורך כל ההליך המשפטי — מהייעוץ הראשוני ועד לקבלת הפיצוי המגיע להם. כל תחום מטופל על ידי עורכי דין מנוסים עם ידע מעמיק ורקורד מוכח.</p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="nezikin-services-grid">
+
+      <!-- Card 1: רשלנות רפואית -->
+      <article class="nezikin-service-card">
+        <div class="nezikin-card-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+            <rect x="2" y="6" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"></rect>
+            <path d="M12 18h12M18 12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M6 11h4M6 15h4M6 19h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.45"></path>
+          </svg>
+        </div>
+        <h3 class="nezikin-card-title">רשלנות רפואית</h3>
+        <p class="nezikin-card-desc">טיפול רפואי לקוי, אבחנה שגויה, ניתוח כושל או תרופה שגויה — כולם עשויים להקים עילת תביעה. אנו בוחנים כל מקרה לעומקו ומלווים נפגעים בתביעות מול בתי חולים וחברות ביטוח.</p>
+        <a href="/nezikin/rashlanut-refu-it" class="nezikin-card-link">לעמוד התחום <span aria-hidden="true">←</span></a>
+      </article>
+
+      <!-- Card 2: תאונות דרכים -->
+      <article class="nezikin-service-card">
+        <div class="nezikin-card-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+            <rect x="3" y="13" width="30" height="14" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"></rect>
+            <path d="M8 13L12 7h12l4 6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"></path>
+            <circle cx="10" cy="27" r="3.5" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <circle cx="26" cy="27" r="3.5" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <path d="M3 20h30" stroke="currentColor" stroke-width="1" opacity="0.35"></path>
+          </svg>
+        </div>
+        <h3 class="nezikin-card-title">תאונות דרכים</h3>
+        <p class="nezikin-card-desc">נפגעתם בתאונת דרכים? אנו מנהלים תביעות פיצויים מול קרנית, חברות ביטוח ורשויות, ומבטיחים שתקבלו פיצוי מלא על נזקי גוף, אובדן כושר עבודה ועוגמת נפש.</p>
+        <a href="/nezikin/taunot-drachim" class="nezikin-card-link">לעמוד התחום <span aria-hidden="true">←</span></a>
+      </article>
+
+      <!-- Card 3: נפילה והחלקה -->
+      <article class="nezikin-service-card">
+        <div class="nezikin-card-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+            <path d="M18 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+            <path d="M10 20l4-8 6 4 4 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+            <path d="M6 32h24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M14 26l-4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3 class="nezikin-card-title">נפילה והחלקה</h3>
+        <p class="nezikin-card-desc">תאונות נפילה והחלקה במרחב הציבורי, בקניונים, במדרכות ובמקומות עבודה עשויות לחייב פיצוי מהרשות המקומית או בעל הנכס. אנו מוכיחים רשלנות ומנהלים את ההליך מולם.</p>
+        <a href="/nezikin/nefilah-vachlakah" class="nezikin-card-link">לעמוד התחום <span aria-hidden="true">←</span></a>
+      </article>
+
+      <!-- Card 4: נשיכות כלבים -->
+      <article class="nezikin-service-card nezikin-card-row2">
+        <div class="nezikin-card-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+            <path d="M6 28c0-6 4-10 10-10s10 4 10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path>
+            <circle cx="16" cy="12" r="5" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+            <path d="M22 8l4-3v5l4-1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+            <path d="M8 28h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <h3 class="nezikin-card-title">נשיכות כלבים</h3>
+        <p class="nezikin-card-desc">חוק הפיצויים קובע אחריות מוחלטת על בעלי כלבים לנזקי נשיכה. אנו מסייעים לנפגעים לממש את זכויותיהם ולתבוע פיצוי על כאב, סבל, צלקות ואובדן ימי עבודה.</p>
+        <a href="/nezikin/neshicot-klavim" class="nezikin-card-link">לעמוד התחום <span aria-hidden="true">←</span></a>
+      </article>
+
+      <!-- Card 5: נפגעי תקיפה -->
+      <article class="nezikin-service-card nezikin-card-row2">
+        <div class="nezikin-card-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+            <path d="M18 4l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"></path>
+            <circle cx="18" cy="18" r="13" stroke="currentColor" stroke-width="1" opacity="0.25" fill="none"></circle>
+          </svg>
+        </div>
+        <h3 class="nezikin-card-title">נפגעי תקיפה</h3>
+        <p class="nezikin-card-desc">קורבנות עבירות אלימות זכאים לפיצוי הן מהתוקף והן מקרן פיצויים לנפגעי עבירות. אנו מנחים נפגעים בהגשת תביעות אזרחיות ומלווים אותם לאורך ההליך המשפטי והנפשי.</p>
+        <a href="/nezikin/nigvei-tkifa" class="nezikin-card-link">לעמוד התחום <span aria-hidden="true">←</span></a>
+      </article>
+
+    </div>
+
+    <!-- Footer Note -->
+    <div class="nezikin-services-footer-note">
+      <p>כל תחום מוביל לעמוד ייעודי עם פירוט מלא של הזכויות, ההליך המשפטי ודוגמאות לתיקים שניהלנו. ייעוץ ראשוני ללא עלות.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="nezikin-benefits-section" data-layout-spec="נזיקין-benefits" dir="rtl">
+  <div class="nezikin-benefits-container">
+
+    <!-- Header Block -->
+    <div class="nezikin-benefits-header">
+      <h2 class="nezikin-benefits-title">כיצד אנו מלווים אתכם בתביעת נזיקין</h2>
+      <p class="nezikin-benefits-intro">בתיקי נזיקין, הפרטים קובעים. אנו מאמינים שכל לקוח ראוי לייצוג מקצועי, יסודי ושקוף — משלב הבדיקה הראשונית ועד לסיום ההליך. הגישה שלנו משלבת ניסיון משפטי מעמיק עם ליווי אישי צמוד לאורך כל הדרך.</p>
+    </div>
+
+    <!-- 3-Column Benefits Grid -->
+    <div class="nezikin-benefits-grid">
+
+      <article class="nezikin-benefit-card">
+        <div class="nezikin-benefit-card-top-bar"></div>
+        <div class="nezikin-benefit-card-body">
+          <div class="nezikin-benefit-icon-wrap" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+          </div>
+          <h3 class="nezikin-benefit-title">בדיקה משפטית יסודית</h3>
+          <p class="nezikin-benefit-desc">כל תיק עובר ניתוח מעמיק של הנסיבות, הראיות הרלוונטיות ועוצמת התביעה. אנו בוחנים כל פרט לפני שמציגים המלצה ברורה ומבוססת.</p>
+        </div>
+      </article>
+
+      <article class="nezikin-benefit-card">
+        <div class="nezikin-benefit-card-top-bar"></div>
+        <div class="nezikin-benefit-card-body">
+          <div class="nezikin-benefit-icon-wrap" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3 class="nezikin-benefit-title">איסוף ראיות ומסמכים</h3>
+          <p class="nezikin-benefit-desc">אנו מטפלים בריכוז כל החומר הרלוונטי — דוחות רפואיים, חוות דעת מומחים, תיעוד תאונה ומסמכים מגורמים רשמיים — כדי לבנות תיק חזק ומוכן.</p>
+        </div>
+      </article>
+
+      <article class="nezikin-benefit-card">
+        <div class="nezikin-benefit-card-top-bar"></div>
+        <div class="nezikin-benefit-card-body">
+          <div class="nezikin-benefit-icon-wrap" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3 class="nezikin-benefit-title">ליווי ברור לאורך ההליך</h3>
+          <p class="nezikin-benefit-desc">אנחנו מאמינים שהלקוח צריך להבין בכל שלב מה קורה בתיקו. אנו מספקים עדכונים שוטפים, הסברים בשפה פשוטה ונגישות ישירה לצוות המטפל.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Two-Column Lower Block -->
+    <div class="nezikin-benefits-lower">
+
+      <!-- Right Column: Extended explanation -->
+      <div class="nezikin-benefits-explanation">
+        <span class="nezikin-diamond-sep" aria-hidden="true"></span>
+        <h3 class="nezikin-explanation-title">אופן העבודה שלנו בתיקי נזיקין</h3>
+        <p>תביעת נזיקין — בין אם מדובר בתאונת דרכים, תאונת עבודה או רשלנות רפואית — דורשת גישה מדויקת ומתודית. ההליך מתחיל בפגישת היכרות ללא עלות, בה אנו שומעים את הנסיבות, מעריכים את הסיכויים ומסבירים בפרוטרוט מה צפוי לקדימה.
+        </p>
+        <p>לאחר מכן, הצוות שלנו לוקח על עצמו את כל המשימות המשפטיות — מהגשת התביעה ועד ניהול המשא ומתן מול חברות ביטוח וגורמים משפטיים. הלקוח יכול להתמקד בהחלמה, בידיעה שהצד המשפטי בידיים מקצועיות.</p>
+        <p>אנו פועלים בשקיפות מלאה בנושא שכר טרחה — ברוב תיקי הנזיקין, הייצוג מתבצע בשיטת שכר הצלחה בלבד, ללא תשלום מקדמי.</p>
+      </div>
+
+      <!-- Left Column: Preparation checklist -->
+      <div class="nezikin-benefits-checklist">
+        <h3 class="nezikin-checklist-title">מה כדאי להכין לפגישה הראשונה?</h3>
+        <ul class="nezikin-checklist-list">
+          <li class="nezikin-checklist-item">
+            <div class="nezikin-checklist-item-inner">
+              <span class="nezikin-checklist-num" aria-hidden="true">01</span>
+              <div class="nezikin-checklist-text">
+                <strong>תיעוד האירוע</strong>
+                <span>צילומים, דוח משטרה, עדויות — כל מסמך הקשור לנסיבות המקרה.</span>
+              </div>
+            </div>
+          </li>
+          <li class="nezikin-checklist-item">
+            <div class="nezikin-checklist-item-inner">
+              <span class="nezikin-checklist-num" aria-hidden="true">02</span>
+              <div class="nezikin-checklist-text">
+                <strong>מסמכים רפואיים</strong>
+                <span>סיכומי אשפוז, הפניות, תוצאות בדיקות ואבחנות רלוונטיות.</span>
+              </div>
+            </div>
+          </li>
+          <li class="nezikin-checklist-item">
+            <div class="nezikin-checklist-item-inner">
+              <span class="nezikin-checklist-num" aria-hidden="true">03</span>
+              <div class="nezikin-checklist-text">
+                <strong>פרטי ביטוח וצד שלישי</strong>
+                <span>פוליסות ביטוח, פרטי הצד הנגדי ומסמכי תאגיד אם רלוונטי.</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="nezikin-case-studies-section" data-layout-spec="נזיקין-case-studies" dir="rtl">
+  <div class="ncs-container">
+
+    <!-- Section Header -->
+    <div class="ncs-header">
+      <h2 class="ncs-title">תחומי הטיפול שלנו</h2>
+      <div class="ncs-accent-line">
+        <svg data-no-icon-edit="true" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="0" width="8.485" height="8.485" transform="rotate(45 6 6)" fill="#C6A46C"></rect>
+        </svg>
+      </div>
+      <p class="ncs-subtitle">המשרד מתמחה בטיפול מקצועי ומסור במגוון תיקי נזיקין — מתאונות דרכים ועד רשלנות רפואית. להלן סוגי המקרים הנפוצים בהם אנו מלווים את לקוחותינו לאורך כל ההליך המשפטי.</p>
+    </div>
+
+    <!-- Case Study Panels -->
+    <div class="ncs-grid">
+
+      <!-- Panel 1 -->
+      <article class="ncs-panel">
+        <div class="ncs-panel-icon" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M10 22 L14 16 L18 19 L22 13 L26 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <circle cx="18" cy="26" r="2" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <div class="ncs-panel-body">
+          <h3 class="ncs-panel-title">תאונות דרכים ונפגעי תנועה</h3>
+          <p class="ncs-panel-desc">אנו מייצגים נפגעי תאונות דרכים — נהגים, רוכבים ועוברי אורח — בתביעות נגד חברות ביטוח ומוסדות ממשלתיים. הטיפול כולל הגשת תביעה לפיצויים, ניהול מו"מ מול המבטחים, ובמקרה הצורך ייצוג בבית המשפט לקבלת הפיצוי המלא המגיע לכם.</p>
+          <div class="ncs-panel-footer">
+            <span class="ncs-footer-label">למידע נוסף בעמוד תחום הנזיקין</span>
+            <svg data-no-icon-edit="true" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 8 L6 4 M10 8 L6 12" stroke="#C6A46C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 2 -->
+      <article class="ncs-panel">
+        <div class="ncs-panel-icon" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="6" width="20" height="24" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
+            <path d="M12 14 H24 M12 19 H24 M12 24 H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M22 4 L22 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M14 4 L14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="ncs-panel-body">
+          <h3 class="ncs-panel-title">רשלנות רפואית ותביעות מול מוסדות בריאות</h3>
+          <p class="ncs-panel-desc">כאשר טיפול רפואי לקוי גורם לנזק גוף או להחמרת מצב בריאותי, עומדת לנפגע הזכות לתביעה. אנו מלווים מטופלים ובני משפחה בבירור האחריות המשפטית, בהשגת חוות דעת מומחים, ובניהול ההליך מול בתי חולים, קופות חולים ורופאים פרטיים — בגישה מקצועית, רגישה ויסודית.</p>
+          <div class="ncs-panel-footer">
+            <span class="ncs-footer-label">למידע נוסף בעמוד תחום הנזיקין</span>
+            <svg data-no-icon-edit="true" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 8 L6 4 M10 8 L6 12" stroke="#C6A46C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <!-- Panel 3 -->
+      <article class="ncs-panel">
+        <div class="ncs-panel-icon" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6 L6 12 L6 24 C6 29 12 33 18 34 C24 33 30 29 30 24 L30 12 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
+            <path d="M13 18 L16.5 21.5 L23 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="ncs-panel-body">
+          <h3 class="ncs-panel-title">נזקי גוף בתאונות עבודה ומקרים אחרים</h3>
+          <p class="ncs-panel-desc">תאונות עבודה, תקלות בנכסים ציבוריים, נפילות ופגיעות הנגרמות ברשלנות צד שלישי — כולם עשויים להקנות זכות לפיצוי. אנו בוחנים כל מקרה לגופו, מזהים את הגורם האחראי, ומגבשים אסטרטגיה משפטית מותאמת לנסיבות הספציפיות של הנפגע ומשפחתו.</p>
+          <div class="ncs-panel-footer">
+            <span class="ncs-footer-label">למידע נוסף בעמוד תחום הנזיקין</span>
+            <svg data-no-icon-edit="true" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 8 L6 4 M10 8 L6 12" stroke="#C6A46C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Summary Statement -->
+    <div class="ncs-summary">
+      <div class="ncs-summary-inner">
+        <div class="ncs-summary-diamond" aria-hidden="true">
+          <svg data-no-icon-edit="true" aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="0" width="7.07" height="7.07" transform="rotate(45 5 5)" fill="#C6A46C"></rect>
+          </svg>
+        </div>
+        <p class="ncs-summary-text">המשרד מעניק ייצוג מקצועי ואישי הן לנפגעים פרטיים והן למשפחות — בכל שלב של ההליך המשפטי, מהייעוץ הראשוני ועד לסיום התיק.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="nezikin-cta-section" data-layout-spec="נזיקין-cta" dir="rtl">
+  <div class="nezikin-cta-container">
+    <div class="nezikin-cta-card">
+      <div class="nezikin-cta-accent-bar"></div>
+
+      <!-- Decorative quotation mark -->
+      <div class="nezikin-cta-quote-decor" aria-hidden="true">
+        <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="80" height="60">
+          <text x="0" y="55" font-family="Georgia, serif" font-size="80" fill="#C6A46C" opacity="0.15">“</text>
+        </svg>
+      </div>
+
+      <div class="nezikin-cta-inner">
+        <!-- Right column: content -->
+        <div class="nezikin-cta-content">
+          <h2 class="nezikin-cta-heading">מוכנים לברר את זכויותיכם?</h2>
+          <p class="nezikin-cta-body">אם נפגעתם בתאונת דרכים, מרשלנות רפואית, או בכל אירוע נזיקי אחר — אתם זכאים לייצוג מקצועי שיפעל עבורכם. צוות המשרד שלנו מלווה תובעים לאורך כל ההליך, מהגשת התביעה ועד לקבלת הפיצוי המגיע.</p>
+          <p class="nezikin-cta-note">
+            <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-inline-start:6px;flex-shrink:0;">
+              <circle cx="8" cy="8" r="7" stroke="#C6A46C" stroke-width="1.5"></circle>
+              <path d="M8 5v4M8 11v.5" stroke="#C6A46C" stroke-width="1.5" stroke-linecap="round"></path>
+            </svg>
+            ניתן לפנות אלינו גם לצורך בדיקה ראשונית של המקרה — ללא התחייבות.
+          </p>
+        </div>
+
+        <!-- Left column: actions -->
+        <div class="nezikin-cta-actions">
+          <a href="/contact" class="nezikin-btn-primary">צרו קשר עכשיו</a>
+          <a href="#nezikin-grid" class="nezikin-btn-secondary">חזרה לתחומי הנזיקין</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section></main>
+  
+  <footer class="site-footer" dir="rtl">
+  <div class="footer-main">
+    <div class="footer-container">
+      <div class="footer-grid">
+
+        <!-- Column 1: Company Info -->
+        <div class="footer-col footer-col--brand">
+          <div class="footer-logo-wrap">
+            <img src="/assets/logo.webp" alt="הררי ושות' - משרד עורכי-דין" class="logo" data-element-type="image" data-element-id="img-1777539159723-89i41lwzj" data-zappy-footer-image="true" style="object-fit: cover; object-position: 50% 50%; width: 157px !important; max-width: none !important; max-height: none !important; height: auto !important;">
+          </div>
+          <p class="footer-tagline" >מעטפת משפטית שמותאמת לצרכי הלקוח.&nbsp;</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook" class="social-link" style="display:none !important;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" class="social-link" style="display:none !important;"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="WhatsApp" class="social-link" style="display:none !important;"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col footer-col--links">
+          <h3 class="footer-heading">
+            <span class="footer-heading-accent"></span>
+            ניווט מהיר
+          </h3>
+          <ul class="footer-nav">
+            
+            <li><a href="/about-the-office">אודות המשרד</a></li>
+            <li><a href="/contact"><i class="fas fa-chevron-left footer-nav-icon"></i>צור קשר</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Contact Info -->
+        <div class="footer-col footer-col--contact">
+          <h3 class="footer-heading">
+            <span class="footer-heading-accent"></span>
+            פרטי התקשרות
+          </h3>
+          <ul class="footer-contact" ><li>
+              <span class="contact-icon"><i class="fas fa-envelope" data-element-type="icon" data-element-id="icon-1777539159722-vjw0bonuz" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
+              <span class="contact-text"><a href="/cdn-cgi/l/email-protection#afc0c9c9c6cccaefd6c7ceddceddc682c3ced881ccc081c6c3" >office@yharari-law.co.il<br></a></span>
+            </li><li>
+              <span class="contact-icon"><i class="fas fa-phone" data-element-type="icon" data-element-id="icon-1777539159722-0t1dp3yg2" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
+              <span class="contact-text"><a href="tel:074-7642466">074-7642466</a></span>
+            </li><li><a href="/" ><span class="contact-icon"><i class="fas fa-map-marker-alt" style="cursor: pointer;"></i></span>
+              <span class="contact-text">צפת/כרמיאל</span></a></li></ul>
+        </div>
+
+        <!-- Column 4: Office Hours -->
+        <div class="footer-col footer-col--hours">
+          <h3 class="footer-heading">
+            <span class="footer-heading-accent"></span>
+            שעות פעילות
+          </h3>
+          <ul class="footer-hours" ><li><a href="/"><span class="hours-day">ראשון – חמישי</span>
+              <span class="hours-time">09:00 – 18:00</span></a></li><li><a href="/"><span class="hours-day">שישי שבת</span>
+              <span class="hours-time">סגור</span></a></li></ul>
+          <p><a href="/contact" class="footer-cta-btn" data-element-type="button" data-element-id="btn-1777539159720-3yqgpvkqz" data-native-element="true">קבע פגישת ייעוץ</a>
+        </p></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="footer-divider-wrap">
+    <div class="footer-container">
+      <div class="footer-divider"></div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <div class="footer-container">
+      <div class="footer-bottom-inner">
+        <p class="footer-copyright" >© 2026 הררי ושות' - משרד עורכי-דין. כל הזכויות שמורות.</p>
+        <div class="footer-legal-links">
+          <a href="/privacy">מדיניות פרטיות</a>
+          <span class="footer-legal-sep" aria-hidden="true">|</span>
+          <a href="/terms">תנאי שימוש</a>
+          <span class="footer-legal-sep" aria-hidden="true">|</span>
+          <a href="/accessibility">נגישות</a>
+          <span class="footer-legal-sep" aria-hidden="true">|</span>
+          <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/972525752757" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <script>
+(function() {
+  function enableWheelScroll() {
+    var wrappers = document.querySelectorAll('.index-services-scroll-wrapper');
+    wrappers.forEach(function(wrapper) {
+      wrapper.addEventListener('wheel', function(e) {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          wrapper.scrollLeft -= e.deltaY * 1.5;
+        }
+      }, { passive: false });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', enableWheelScroll);
+  } else {
+    enableWheelScroll();
+  }
+})();
+</script>
+
+    <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+</body>
+</html>

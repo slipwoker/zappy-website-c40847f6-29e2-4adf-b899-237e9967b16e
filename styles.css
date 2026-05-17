@@ -4911,12 +4911,13 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   }
 }
 
+/* about-story */
 .about-story-section {
   position: relative;
   overflow: visible;
   background: #FFFFFF;
   color: var(--text-dark);
-  padding: 96px 24px 96px;
+  padding: 140px 24px 96px;
   direction: rtl;
 }
 
@@ -5170,12 +5171,13 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   }
 }
 
+/* about-values */
 .about-values-section {
   position: relative;
   overflow: visible;
   background: #FFFFFF;
   color: var(--text-dark);
-  padding: 96px 24px 96px;
+  padding: 96px 24px 120px;
   direction: rtl;
 }
 
