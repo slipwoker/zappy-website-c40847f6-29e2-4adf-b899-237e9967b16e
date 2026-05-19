@@ -8294,6 +8294,14 @@ nav.navbar #navMenu {
 nav.navbar li.menu-group-item {
   overflow: visible !important;
 }
+
+nav.navbar {
+  z-index: 9999 !important;
+}
+
+nav.navbar .sub-menu {
+  z-index: 10000 !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
