@@ -8644,6 +8644,32 @@ nav.navbar .sub-menu {
   text-align: center !important;
   align-items: center !important;
 }
+
+.nezikin-road-accidents-hero-section .nra-hero-container {
+  grid-template-columns: 1fr !important;
+}
+
+.nezikin-road-accidents-hero-section .nra-hero-content {
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.nezikin-road-accidents-hero-section .nra-hero-title {
+  text-align: center !important;
+}
+
+.nezikin-road-accidents-hero-section .nra-hero-para {
+  text-align: center !important;
+}
+
+.nezikin-road-accidents-hero-section .nra-hero-cta-row {
+  justify-content: center !important;
+}
+
+.nezikin-road-accidents-hero-section .nra-hero-divider-accent {
+  margin-inline-start: auto !important;
+  margin-inline-end: auto !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
