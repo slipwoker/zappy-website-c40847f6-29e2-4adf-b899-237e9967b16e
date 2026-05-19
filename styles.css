@@ -8691,6 +8691,16 @@ nav.navbar .sub-menu {
   padding-top: 40px !important;
 }
 }
+
+.nezikin-road-accidents-hero-section .nra-hero-content {
+  justify-content: space-between !important;
+  min-height: 360px !important;
+}
+
+.nezikin-road-accidents-hero-section .nra-hero-cta-row {
+  margin-top: auto !important;
+  padding-top: 48px !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
