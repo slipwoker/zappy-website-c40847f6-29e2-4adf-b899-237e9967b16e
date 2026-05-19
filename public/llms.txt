@@ -24,6 +24,10 @@ https://yharari-law.co.il/menu-group-1779185005709
 https://yharari-law.co.il/contact
 יש לכם שאלה על תאונת דרכים, רשלנות רפואית או עריכת חוזים? צרו קשר עם הררי ושות&#39; עכשיו לייעוץ ראשוני ומקצועי — כי כל יום שעובר חשוב.
 
+### רשלנות רפואית
+https://yharari-law.co.il/nezikin/medical-negligence
+הררי ושות' - משרד עורכי-דין - רשלנות רפואית
+
 ## Legal & Policy
 
 ### Privacy Policy
@@ -53,11 +57,11 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text)
-  - `email` (email)
-  - `phone` (tel)
-  - `message` (textarea)
-  - `privacy_consent` (checkbox)
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel, required)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
 
 ---
 
