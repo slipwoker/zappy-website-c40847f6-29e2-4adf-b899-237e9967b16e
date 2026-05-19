@@ -8303,13 +8303,8 @@ nav.navbar .sub-menu {
   z-index: 10000 !important;
 }
 
-/* Added Component Styles */
-/* =============================================
-   MEDICAL NEGLIGENCE CASES SECTION
-   ============================================= */
-
 .mnr-cases-section {
-  background: #f4f7fb;
+  background: #FFFFFF;
   padding: 90px 20px 80px;
   font-family: system-ui, sans-serif;
   direction: rtl;
