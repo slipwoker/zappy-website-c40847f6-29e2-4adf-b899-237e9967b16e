@@ -8626,6 +8626,20 @@ nav.navbar .sub-menu {
     padding: 14px 28px;
   }
 }
+
+.nezikin-medical-negligence-hero-section h1 span,
+.nezikin-medical-negligence-hero-section h1 span span {
+  color: var(--accent-color) !important;
+}
+
+@media (max-width: 768px) {
+.nezikin-medical-negligence-hero-section h1,
+  .nezikin-medical-negligence-hero-section h1 span,
+  .nezikin-medical-negligence-hero-section h1 span span,
+  .nezikin-medical-negligence-hero-section h1 span span span {
+  color: var(--accent-color) !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
