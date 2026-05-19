@@ -8640,6 +8640,15 @@ nav.navbar .sub-menu {
   color: var(--accent-color) !important;
 }
 }
+
+.nezikin-medical-negligence-hero-section .nmnh-grid {
+  grid-template-columns: 1fr !important;
+}
+
+.nezikin-medical-negligence-hero-section .nmnh-text-col {
+  text-align: center !important;
+  align-items: center !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
