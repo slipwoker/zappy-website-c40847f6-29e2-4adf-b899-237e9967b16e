@@ -8701,6 +8701,10 @@ nav.navbar .sub-menu {
   margin-top: auto !important;
   padding-top: 48px !important;
 }
+
+.nezikin-road-accidents-intro-section {
+  padding-top: 16px !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
