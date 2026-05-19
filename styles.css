@@ -8670,6 +8670,27 @@ nav.navbar .sub-menu {
   margin-inline-start: auto !important;
   margin-inline-end: auto !important;
 }
+
+.nezikin-road-accidents-hero-section .nra-hero-eyebrow {
+  padding-inline-end: 0 !important;
+  padding-inline-start: 18px !important;
+}
+
+.nezikin-road-accidents-hero-section .nra-hero-eyebrow::after {
+  content: '';
+  inset-inline-end: auto !important;
+  inset-inline-start: 0 !important;
+}
+
+@media (max-width: 768px) {
+.nezikin-road-accidents-hero-section {
+  padding-bottom: 24px !important;
+}
+
+.nezikin-road-accidents-intro-section {
+  padding-top: 40px !important;
+}
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
