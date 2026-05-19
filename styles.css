@@ -8302,6 +8302,330 @@ nav.navbar {
 nav.navbar .sub-menu {
   z-index: 10000 !important;
 }
+
+/* Added Component Styles */
+/* =============================================
+   MEDICAL NEGLIGENCE CASES SECTION
+   ============================================= */
+
+.mnr-cases-section {
+  background: #f4f7fb;
+  padding: 90px 20px 80px;
+  font-family: system-ui, sans-serif;
+  direction: rtl;
+  position: relative;
+  overflow: hidden;
+}
+
+.mnr-cases-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(24, 49, 83, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.mnr-cases-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(44, 62, 107, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* --- Container --- */
+.mnr-cases-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Header --- */
+.mnr-cases-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.mnr-cases-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--primary, #183153);
+  margin: 0 0 18px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  position: relative;
+  display: inline-block;
+}
+
+.mnr-cases-title::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary, #183153), #2C3E6B);
+  border-radius: 2px;
+  margin: 14px auto 0;
+}
+
+.mnr-cases-subtitle {
+  font-size: 1.05rem;
+  color: #4a5568;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* --- Grid --- */
+.mnr-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* --- Card --- */
+.mnr-case-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(24, 49, 83, 0.09);
+  border: 1px solid rgba(24, 49, 83, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mnr-case-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(24, 49, 83, 0.16);
+}
+
+/* --- Card Image Wrap --- */
+.mnr-card-image-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.mnr-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.mnr-case-card:hover .mnr-card-image {
+  transform: scale(1.05);
+}
+
+/* --- Badge --- */
+.mnr-card-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--primary, #183153);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 5px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(24, 49, 83, 0.35);
+}
+
+/* --- Card Body --- */
+.mnr-card-body {
+  padding: 24px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mnr-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary, #183153);
+  margin: 0 0 14px;
+  line-height: 1.4;
+}
+
+/* --- List --- */
+.mnr-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  flex: 1;
+}
+
+.mnr-card-list li {
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.6;
+  padding: 6px 0 6px 0;
+  border-bottom: 1px solid rgba(24, 49, 83, 0.07);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.mnr-card-list li::before {
+  content: '✓';
+  color: var(--primary, #183153);
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.75;
+}
+
+.mnr-card-list li:last-child {
+  border-bottom: none;
+}
+
+/* --- CTA Link --- */
+.mnr-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary, #183153);
+  text-decoration: none;
+  border-top: 1px solid rgba(24, 49, 83, 0.12);
+  padding-top: 16px;
+  margin-top: auto;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.mnr-card-cta:hover,
+.mnr-card-cta:focus {
+  color: #2C3E6B;
+  gap: 10px;
+  text-decoration: underline;
+}
+
+.mnr-card-cta:focus {
+  outline: 2px solid var(--primary, #183153);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* --- Footer CTA --- */
+.mnr-cases-footer {
+  margin-top: 60px;
+  text-align: center;
+  background: var(--gradient-primary, linear-gradient(135deg, #1B2B4B 0%, #2C3E6B 100%));
+  border-radius: 18px;
+  padding: 48px 32px;
+  box-shadow: 0 8px 32px rgba(24, 49, 83, 0.2);
+}
+
+.mnr-footer-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.mnr-footer-cta {
+  display: inline-block;
+  background: #ffffff;
+  color: var(--primary, #183153);
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 16px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  letter-spacing: 0.01em;
+}
+
+.mnr-footer-cta:hover,
+.mnr-footer-cta:focus {
+  background: #e8eef6;
+  color: #1B2B4B;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+}
+
+.mnr-footer-cta:focus {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* =============================================
+   RESPONSIVE — TABLET (2 columns)
+   ============================================= */
+@media (max-width: 1024px) {
+  .mnr-cases-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+
+/* =============================================
+   RESPONSIVE — MOBILE (1 column)
+   ============================================= */
+@media (max-width: 640px) {
+  .mnr-cases-section {
+    padding: 60px 16px 60px;
+  }
+
+  .mnr-cases-header {
+    margin-bottom: 36px;
+  }
+
+  .mnr-cases-title {
+    font-size: 1.55rem;
+  }
+
+  .mnr-cases-subtitle {
+    font-size: 0.97rem;
+  }
+
+  .mnr-cases-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mnr-card-image-wrap {
+    height: 180px;
+  }
+
+  .mnr-card-body {
+    padding: 20px 18px 16px;
+  }
+
+  .mnr-card-title {
+    font-size: 1.05rem;
+  }
+
+  .mnr-cases-footer {
+    padding: 36px 20px;
+    border-radius: 14px;
+  }
+
+  .mnr-footer-text {
+    font-size: 1.1rem;
+  }
+
+  .mnr-footer-cta {
+    font-size: 0.95rem;
+    padding: 14px 28px;
+  }
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
