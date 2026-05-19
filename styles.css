@@ -8213,7 +8213,7 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 @media (max-width: 768px) {
 #about-team-section #zappy-element-1779013225183-4s0t6910e {
   height: auto !important;
-  min-height: 0 !important;
+  min-height: 0px !important;
   max-height: none !important;
   aspect-ratio: 4 / 5;
 }

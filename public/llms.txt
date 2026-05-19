@@ -6,15 +6,18 @@
 
 ## Pages
 
-### בית
+### רשלנות רפואית — הררי ושות&#39; - משרד עורכי-דין
 https://yharari-law.co.il
 נפגעתם בתאונת דרכים, רשלנות רפואית או נפילה במדרכה? הררי ושות&#39; לצידכם. ייעוץ משפטי מקצועי, תוצאות מוכחות. פנו אלינו עוד היום.
 
-### אודות המשרד
+### הכירו את המשרד שנלחם עבורכם — הררי ושות&#39; - משרד עורכי-דין
 https://yharari-law.co.il/about-the-office
 הררי ושות&#39; הוא משרד עורכי דין עם מוניטין מוכח בנזקי גוף וייעוץ משפטי לעסקים. גלו מי אנחנו, מה מניע אותנו ולמה לקוחות בוחרים בנו שוב ושוב.
 
-### צור קשר
+### Page
+https://yharari-law.co.il/menu-group-1779184927601
+
+### דברו איתנו עוד היום ואל תוותרו על זכויותיכם — הררי ושות&#39; - משרד עורכי-דין
 https://yharari-law.co.il/contact
 יש לכם שאלה על תאונת דרכים, רשלנות רפואית או עריכת חוזים? צרו קשר עם הררי ושות&#39; עכשיו לייעוץ ראשוני ומקצועי — כי כל יום שעובר חשוב.
 
@@ -47,11 +50,11 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text, required)
-  - `email` (email, required)
-  - `phone` (tel, required)
-  - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `name` (text)
+  - `email` (email)
+  - `phone` (tel)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox)
 
 ---
 
