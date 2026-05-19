@@ -8270,6 +8270,30 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 .site-header #navMenu {
   overflow: visible !important;
 }
+
+nav.navbar {
+  overflow: visible !important;
+}
+
+nav.navbar .nav-container {
+  overflow: visible !important;
+}
+
+nav.navbar .nav-right-group {
+  overflow: visible !important;
+}
+
+nav.navbar .nav-menu {
+  overflow: visible !important;
+}
+
+nav.navbar #navMenu {
+  overflow: visible !important;
+}
+
+nav.navbar li.menu-group-item {
+  overflow: visible !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
